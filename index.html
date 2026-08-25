@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intercorp | Vállalati lakhatás Debrecenben és környékén</title>
+    <meta name="description" content="Minőségi céges szálláskiadás és ingatlanüzemeltetés Debrecenben és környékén – vezetőktől a kiküldött munkavállalói csapatokig.">
+    <link rel="canonical" href="https://intercorp.netlify.app/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Intercorp | Vállalati lakhatás Debrecenben és környékén">
+    <meta property="og:description" content="Minőségi céges szálláskiadás és ingatlanüzemeltetés Debrecenben és környékén – vezetőktől a kiküldött munkavállalói csapatokig.">
+    <meta property="og:url" content="https://intercorp.netlify.app/">
+    <meta property="og:image" content="https://intercorp.netlify.app/kepek/hero.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Intercorp | Vállalati lakhatás Debrecenben és környékén">
+    <meta name="twitter:description" content="Minőségi céges szálláskiadás és ingatlanüzemeltetés Debrecenben és környékén – vezetőktől a kiküldött munkavállalói csapatokig.">
+    <meta name="twitter:image" content="https://intercorp.netlify.app/kepek/hero.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --dark:    #12181D;
+            --dark2:   #1B242C;
+            --accent:  #2E6FF2;
+            --accent2: #D9A54E;
+            --bg:      #F7F8FA;
+            --bg-alt:  #EEF1F5;
+            --text:    #1D2630;
+            --muted:   #667085;
+            --white:   #FFFFFF;
+            --heading: 'Playfair Display', Georgia, serif;
+            --body:    'Inter', -apple-system, sans-serif;
+            --nav-h:   80px;
+            --max-w:   1200px;
+            --ease:    0.3s ease;
+            --shadow:  0 4px 24px rgba(18,24,29,0.08);
+            --shadow-lg: 0 12px 48px rgba(18,24,29,0.16);
+        }
+
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--body); color: var(--text); background: var(--bg); line-height: 1.7; overflow-x: hidden; }
+
+        .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+
+        .label {
+            display: block;
+            font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase;
+            color: var(--accent); margin-bottom: 12px;
+        }
+        .title {
+            font-family: var(--heading);
+            font-size: clamp(2rem, 4vw, 3.1rem); font-weight: 700; line-height: 1.18;
+            color: var(--dark); margin-bottom: 18px;
+        }
+        .subtitle { font-size: 1rem; color: var(--muted); line-height: 1.85; max-width: 620px; }
+        .divider { width: 48px; height: 2px; background: var(--accent2); margin: 4px 0 0; }
+        .divider.c { margin: 4px auto 0; }
+        .sec-header { max-width: 720px; margin-bottom: 48px; }
+        .sec-header.c { margin-left: auto; margin-right: auto; text-align: center; }
+
+        .btn {
+            display: inline-flex; align-items: center; gap: 9px;
+            padding: 14px 30px; font-family: var(--body); font-size: 12px;
+            font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+            text-decoration: none; border: none; cursor: pointer;
+            transition: var(--ease); border-radius: 3px;
+        }
+        .btn-blue  { background: var(--accent); color: #fff; }
+        .btn-blue:hover  { background: #1E56D6; transform: translateY(-2px); }
+        .btn-gold  { background: var(--accent2); color: #fff; }
+        .btn-gold:hover  { background: #C08F3A; transform: translateY(-2px); }
+        .btn-dark  { background: var(--dark); color: #fff; }
+        .btn-dark:hover  { background: #253038; transform: translateY(-2px); }
+        .btn-ghost { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,0.65); }
+        .btn-ghost:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
+
+        .sec { padding: 96px 0; }
+        .sec-white { background: var(--bg); }
+        .sec-alt { background: var(--bg-alt); }
+        .sec-dark { background: var(--dark); }
+
+        /* ── NAV ── */
+        #nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            height: var(--nav-h); display: flex; align-items: center;
+            background: transparent; transition: var(--ease);
+        }
+        #nav.scrolled { background: rgba(18,24,29,0.96); box-shadow: var(--shadow); height: 68px; }
+        .nav-in { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; width: 100%; display: flex; align-items: center; justify-content: space-between; }
+        .logo { text-decoration: none; line-height: 1.15; }
+        .logo-name { display: block; font-family: var(--heading); font-size: 1.3rem; font-weight: 700; color: #fff; letter-spacing: 0.5px; }
+        .logo-sub { display: block; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent2); }
+        .nav-links { display: flex; align-items: center; gap: 30px; list-style: none; }
+        .nav-links a { color: rgba(255,255,255,0.88); text-decoration: none; font-size: 0.86rem; font-weight: 500; transition: var(--ease); }
+        .nav-links a:hover { color: var(--accent2); }
+        .nav-links .nav-cta { background: var(--accent); color: #fff; padding: 10px 20px; border-radius: 3px; }
+        .nav-links .nav-cta:hover { background: #1E56D6; color: #fff; }
+        .lang-sw { display: flex; align-items: center; gap: 8px; margin-left: 26px; }
+        .lang-btn { background: none; border: none; cursor: pointer; padding: 2px; border-radius: 3px; opacity: 0.55; transition: var(--ease); line-height: 0; }
+        .lang-btn img { width: 24px; height: 17px; object-fit: cover; border-radius: 2px; display: block; }
+        .lang-btn:hover, .lang-btn.active { opacity: 1; }
+        .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+        .hamburger span { display: block; width: 24px; height: 2px; background: #fff; transition: var(--ease); }
+        .mob-menu {
+            display: none; position: fixed; top: var(--nav-h); left: 0; right: 0;
+            background: var(--dark); padding: 20px 24px 28px; z-index: 999;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+        .mob-menu.open { display: block; }
+        .mob-menu ul { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+        .mob-menu a { display: block; padding: 12px 4px; color: rgba(255,255,255,0.88); text-decoration: none; font-size: 0.95rem; border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .mob-lang { display: flex; gap: 12px; margin-top: 16px; }
+        .mob-lang .lang-btn { opacity: 0.7; }
+        .mob-lang .lang-btn.active { opacity: 1; }
+
+        /* ── HERO ── */
+        #hero { position: relative; min-height: 100vh; padding-top: var(--nav-h); display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; }
+        .hero-bg { position: absolute; inset: 0; background: url('kepek/hero.jpg') center/cover no-repeat; }
+        .hero-ov { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(18,24,29,0.80) 0%, rgba(18,24,29,0.72) 45%, rgba(18,24,29,0.92) 100%); }
+        .hero-c { position: relative; z-index: 2; text-align: center; max-width: 820px; padding: 0 24px 100px; }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.22);
+            color: #fff; padding: 8px 18px; border-radius: 40px; font-size: 12px;
+            letter-spacing: 1px; margin-bottom: 26px; backdrop-filter: blur(4px);
+        }
+        .hero-badge i { color: var(--accent2); }
+        .hero-title { font-family: var(--heading); color: #fff; font-size: clamp(2.3rem, 5.4vw, 3.9rem); font-weight: 700; line-height: 1.18; margin-bottom: 22px; }
+        .hero-title em { color: var(--accent2); font-style: italic; }
+        .hero-desc { color: rgba(255,255,255,0.82); font-size: 1.08rem; line-height: 1.8; margin-bottom: 36px; }
+        .hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .hero-scroll {
+            position: absolute; bottom: 118px; left: 50%; transform: translateX(-50%); z-index: 2;
+            display: flex; flex-direction: column; align-items: center; gap: 6px;
+            color: rgba(255,255,255,0.6); font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+            cursor: pointer; animation: bob 2.2s ease-in-out infinite;
+        }
+        @keyframes bob { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(7px)} }
+        .hero-stats {
+            position: absolute; bottom: 0; left: 0; right: 0; z-index: 2;
+            display: grid; grid-template-columns: repeat(4,1fr);
+            background: rgba(255,255,255,0.06); border-top: 1px solid rgba(255,255,255,0.14); backdrop-filter: blur(6px);
+        }
+        .hero-stat { text-align: center; padding: 22px 12px; border-right: 1px solid rgba(255,255,255,0.14); }
+        .hero-stat:last-child { border-right: none; }
+        .hero-stat-n { display: block; font-family: var(--heading); font-size: 1.7rem; font-weight: 700; color: var(--accent2); }
+        .hero-stat-l { display: block; font-size: 10.5px; letter-spacing: 0.5px; color: rgba(255,255,255,0.72); margin-top: 4px; }
+
+        /* ── ABOUT ── */
+        .about-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 64px; align-items: center; }
+        .about-img { position: relative; border-radius: 8px; overflow: hidden; box-shadow: var(--shadow-lg); }
+        .about-img img { width: 100%; height: 460px; object-fit: cover; display: block; }
+        .about-tag { position: absolute; bottom: 24px; left: 24px; background: var(--white); padding: 16px 22px; border-radius: 6px; box-shadow: var(--shadow); }
+        .about-tag strong { display: block; font-family: var(--heading); font-size: 1.1rem; color: var(--dark); }
+        .about-tag span { font-size: 11px; color: var(--muted); letter-spacing: 0.5px; }
+        .about-p { color: var(--muted); line-height: 1.9; margin-bottom: 18px; font-size: 0.98rem; }
+
+        /* ── SERVICES ── */
+        .svc-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 24px; }
+        .svc-card { background: var(--white); border-radius: 8px; padding: 36px 28px; box-shadow: var(--shadow); transition: var(--ease); }
+        .svc-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+        .svc-icon { width: 54px; height: 54px; border-radius: 8px; background: var(--bg-alt); display: flex; align-items: center; justify-content: center; color: var(--accent); font-size: 1.35rem; margin-bottom: 20px; }
+        .svc-card h3 { font-family: var(--heading); font-size: 1.2rem; color: var(--dark); margin-bottom: 10px; }
+        .svc-card p { color: var(--muted); font-size: 0.9rem; line-height: 1.75; }
+
+        /* ── WHY US ── */
+        .why-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 24px; }
+        .why-card { text-align: center; padding: 30px 20px; }
+        .why-icon { width: 60px; height: 60px; border-radius: 50%; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.18); display: flex; align-items: center; justify-content: center; color: var(--accent2); font-size: 1.4rem; margin: 0 auto 20px; }
+        .why-card h3 { font-family: var(--heading); font-size: 1.12rem; color: #fff; margin-bottom: 10px; }
+        .why-card p { color: rgba(255,255,255,0.68); font-size: 0.88rem; line-height: 1.75; }
+
+        /* ── LISTINGS ── */
+        .list-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 28px; }
+        .list-card { background: var(--white); border-radius: 8px; overflow: hidden; box-shadow: var(--shadow); transition: var(--ease); }
+        .list-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+        .list-img { position: relative; height: 220px; background: var(--bg-alt); }
+        .list-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .list-cap { position: absolute; top: 14px; right: 14px; background: var(--accent); color: #fff; font-size: 11px; font-weight: 600; letter-spacing: 0.5px; padding: 6px 12px; border-radius: 30px; }
+        .list-body { padding: 24px 26px 28px; }
+        .list-area { font-size: 11.5px; color: var(--accent2); font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 8px; }
+        .list-name { font-family: var(--heading); font-size: 1.22rem; color: var(--dark); margin-bottom: 10px; }
+        .list-desc { color: var(--muted); font-size: 0.88rem; line-height: 1.7; margin-bottom: 16px; min-height: 60px; }
+        .list-amenities { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 20px; }
+        .list-amenity { background: var(--bg-alt); color: var(--dark); font-size: 11px; font-weight: 500; padding: 5px 11px; border-radius: 30px; white-space: nowrap; }
+        .list-cta { color: var(--accent); font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; background: none; border: none; cursor: pointer; font-family: var(--body); padding: 0; }
+        .list-cta:hover { gap: 10px; }
+        .list-viewall { text-align: center; margin-top: 44px; }
+
+        /* ── PROCESS ── */
+        .proc-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; position: relative; }
+        .proc-item { position: relative; padding: 0 20px; text-align: center; }
+        .proc-num { width: 46px; height: 46px; border-radius: 50%; background: var(--accent); color: #fff; font-family: var(--heading); font-weight: 700; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; position: relative; z-index: 2; }
+        .proc-item::after { content: ''; position: absolute; top: 23px; left: 50%; width: 100%; height: 2px; background: #E2E6EC; z-index: 1; }
+        .proc-item:last-child::after { display: none; }
+        .proc-item h3 { font-family: var(--heading); font-size: 1.08rem; color: var(--dark); margin-bottom: 8px; }
+        .proc-item p { color: var(--muted); font-size: 0.87rem; line-height: 1.7; }
+
+        /* ── CONTACT ── */
+        .ct-grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 56px; }
+        .ct-info-card { background: var(--white); border-radius: 8px; padding: 32px; box-shadow: var(--shadow); }
+        .ct-item { display: flex; align-items: flex-start; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--bg-alt); }
+        .ct-item:last-child { border-bottom: none; }
+        .ct-icon { width: 40px; height: 40px; border-radius: 6px; background: var(--bg-alt); color: var(--accent); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .ct-txt strong { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 4px; }
+        .ct-txt a, .ct-txt span.ct-val { color: var(--dark); text-decoration: none; font-weight: 500; font-size: 0.95rem; }
+        .ct-txt a:hover { color: var(--accent); }
+
+        .ct-form { background: var(--white); border-radius: 8px; padding: 36px 40px; box-shadow: var(--shadow); }
+        .ct-form-title { font-family: var(--heading); font-size: 1.35rem; color: var(--dark); margin-bottom: 22px; }
+        .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+        .fg { margin-bottom: 18px; }
+        .fg label { display: block; font-size: 12px; font-weight: 600; color: var(--dark); margin-bottom: 7px; }
+        .fg input, .fg select, .fg textarea {
+            width: 100%; padding: 12px 14px; border: 1.5px solid #DDE2E8; border-radius: 5px;
+            font-family: var(--body); font-size: 0.92rem; color: var(--text); background: var(--bg);
+            transition: border-color var(--ease);
+        }
+        .fg input:focus, .fg select:focus, .fg textarea:focus { outline: none; border-color: var(--accent); background: #fff; }
+        .fg textarea { resize: vertical; min-height: 110px; }
+        .fg.err input, .fg.err textarea { border-color: #C0392B; }
+        .fg-checkbox { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 22px; }
+        .fg-checkbox input { width: auto; margin-top: 3px; }
+        .fg-checkbox label { font-size: 0.84rem; color: var(--muted); font-weight: 400; }
+        .fg-checkbox a { color: var(--accent); }
+        .fg-checkbox.err label { color: #C0392B; }
+        .btn-submit { width: 100%; justify-content: center; }
+        .form-ok { display: none; text-align: center; padding: 40px 0; }
+        .form-ok i { font-size: 2.6rem; color: var(--accent); margin-bottom: 16px; }
+        .form-ok h3 { font-family: var(--heading); font-size: 1.4rem; color: var(--dark); margin-bottom: 8px; }
+        .form-ok p { color: var(--muted); }
+
+        /* ── FOOTER ── */
+        footer { background: var(--dark); padding: 56px 0 32px; }
+        .ft-in { text-align: center; }
+        .ft-name { font-family: var(--heading); font-size: 1.5rem; font-weight: 700; color: #fff; }
+        .ft-sub { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent2); margin-top: 4px; }
+        .ft-nav { list-style: none; display: flex; justify-content: center; gap: 26px; flex-wrap: wrap; margin: 28px 0; }
+        .ft-nav a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.85rem; }
+        .ft-nav a:hover { color: var(--accent2); }
+        .ft-line { height: 1px; background: rgba(255,255,255,0.1); margin: 0 auto 22px; max-width: 480px; }
+        .ft-copy { font-size: 0.82rem; color: rgba(255,255,255,0.55); text-align: center; }
+        .ft-legal { font-size: 11px; margin-top: 10px; text-align: center; }
+        .ft-legal a { color: rgba(255,255,255,0.4); text-decoration: none; transition: color var(--ease); }
+        .ft-legal a:hover { color: var(--accent2); }
+
+        /* ── MODALS ── */
+        .modal-ov { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 1100; overflow-y: auto; padding: 40px 20px; }
+        .modal-ov.open { display: block; }
+        .modal-box { background: var(--white); border-radius: 10px; max-width: 760px; width: 100%; margin: 0 auto; padding: 48px 52px; position: relative; }
+        .modal-close { position: absolute; top: 18px; right: 22px; background: none; border: none; font-size: 26px; cursor: pointer; color: var(--muted); line-height: 1; }
+        .modal-close:hover { color: var(--dark); }
+        .modal-box h2 { font-family: var(--heading); font-size: 1.9rem; color: var(--dark); margin-bottom: 6px; }
+        .modal-sub { font-size: 0.82rem; color: var(--muted); margin-bottom: 28px; padding-bottom: 20px; border-bottom: 1px solid var(--bg-alt); }
+        .modal-box h3 { font-family: var(--heading); font-size: 1.1rem; color: var(--dark); margin: 22px 0 6px; }
+        .modal-box p, .modal-box li { font-size: 0.9rem; line-height: 1.85; color: var(--text); margin-bottom: 5px; }
+        .modal-box ul { padding-left: 22px; margin-bottom: 8px; }
+        .modal-box a { color: var(--accent); }
+        .modal-foot { margin-top: 32px; padding-top: 16px; border-top: 1px solid var(--bg-alt); font-size: 0.8rem; color: var(--muted); }
+
+        /* ── COOKIE BAR ── */
+        .cookie-bar { position: fixed; bottom: 0; left: 0; right: 0; background: var(--dark); z-index: 1050; padding: 14px 24px; display: none; align-items: center; gap: 16px; flex-wrap: wrap; font-size: 0.83rem; color: rgba(255,255,255,0.78); box-shadow: 0 -4px 20px rgba(0,0,0,0.22); }
+        .cookie-bar p { flex: 1; min-width: 200px; }
+        .cookie-bar a { color: var(--accent2); }
+        .cookie-bar button { background: var(--accent); color: #fff; border: none; padding: 9px 22px; border-radius: 3px; cursor: pointer; font-family: var(--body); font-size: 0.83rem; font-weight: 500; white-space: nowrap; transition: background var(--ease); }
+        .cookie-bar button:hover { background: #1E56D6; }
+
+        @media(max-width: 980px) {
+            .about-grid { grid-template-columns: 1fr; }
+            .about-img img { height: 340px; }
+            .svc-grid, .why-grid { grid-template-columns: repeat(2,1fr); }
+            .list-grid { grid-template-columns: repeat(2,1fr); }
+            .proc-grid { grid-template-columns: repeat(2,1fr); row-gap: 40px; }
+            .proc-item::after { display: none; }
+            .ct-grid { grid-template-columns: 1fr; }
+        }
+        @media(max-width: 860px) {
+            :root { --nav-h: 64px; }
+            .sec { padding: 64px 0; }
+            .nav-links { display: none; }
+            .lang-sw { display: none; }
+            .hamburger { display: flex; }
+            .hero-c { padding-bottom: 150px; }
+            .hero-stats { grid-template-columns: repeat(2,1fr); }
+            .hero-stat:nth-child(2) { border-right: none; }
+            .hero-scroll { bottom: 185px; }
+            .svc-grid, .why-grid, .list-grid { grid-template-columns: 1fr; }
+            .proc-grid { grid-template-columns: 1fr; }
+            .row2 { grid-template-columns: 1fr; }
+            .ct-form { padding: 28px 22px; }
+        }
+        @media(max-width: 480px) {
+            .hero-btns { flex-direction: column; align-items: center; }
+            .hero-btns .btn { width: 100%; max-width: 280px; justify-content: center; }
+            .modal-box { padding: 24px 18px; }
+            .modal-box h2 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+    <div class="nav-in">
+        <a href="#hero" class="logo">
+            <span class="logo-name">INTERCORP</span>
+            <span class="logo-sub">Debrecen · Corporate Housing</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="#rolunk"       data-i18n="nav.about">Rólunk</a></li>
+            <li><a href="#szolgaltatas" data-i18n="nav.services">Szolgáltatások</a></li>
+            <li><a href="#miertmi"      data-i18n="nav.why">Miért mi</a></li>
+            <li><a href="#kapcsolat"    data-i18n="nav.contact">Kapcsolat</a></li>
+            <li><a href="#kapcsolat" class="nav-cta" data-i18n="nav.cta">Kapcsolatfelvétel</a></li>
+        </ul>
+        <div class="lang-sw">
+            <button class="lang-btn active" onclick="setLang('hu')" data-lang="hu" title="Magyar"><img src="https://flagcdn.com/w40/hu.png" alt="Magyar"></button>
+            <button class="lang-btn" onclick="setLang('en')" data-lang="en" title="English"><img src="https://flagcdn.com/w40/gb.png" alt="English"></button>
+            <button class="lang-btn" onclick="setLang('ko')" data-lang="ko" title="한국어"><img src="https://flagcdn.com/w40/kr.png" alt="한국어"></button>
+            <button class="lang-btn" onclick="setLang('zh')" data-lang="zh" title="中文"><img src="https://flagcdn.com/w40/cn.png" alt="中文"></button>
+        </div>
+        <button class="hamburger" id="hbg" aria-label="Menü">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+<div class="mob-menu" id="mobMenu">
+    <ul>
+        <li><a href="#rolunk"       onclick="closeMenu()" data-i18n="nav.about">Rólunk</a></li>
+        <li><a href="#szolgaltatas" onclick="closeMenu()" data-i18n="nav.services">Szolgáltatások</a></li>
+        <li><a href="#miertmi"      onclick="closeMenu()" data-i18n="nav.why">Miért mi</a></li>
+        <li><a href="#kapcsolat"    onclick="closeMenu()" data-i18n="nav.contact">Kapcsolat</a></li>
+    </ul>
+    <div class="mob-lang">
+        <button class="lang-btn active" onclick="setLang('hu')" data-lang="hu" title="Magyar"><img src="https://flagcdn.com/w40/hu.png" alt="Magyar"></button>
+        <button class="lang-btn" onclick="setLang('en')" data-lang="en" title="English"><img src="https://flagcdn.com/w40/gb.png" alt="English"></button>
+        <button class="lang-btn" onclick="setLang('ko')" data-lang="ko" title="한국어"><img src="https://flagcdn.com/w40/kr.png" alt="한국어"></button>
+        <button class="lang-btn" onclick="setLang('zh')" data-lang="zh" title="中文"><img src="https://flagcdn.com/w40/cn.png" alt="中文"></button>
+    </div>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-ov"></div>
+    <div class="hero-c">
+        <div class="hero-badge"><i class="fas fa-map-marker-alt"></i> <span data-i18n="hero.badge">Debrecen és környéke, Magyarország</span></div>
+        <h1 class="hero-title" data-i18n-html="hero.title">Vállalati lakhatás <em>Debrecenben és környékén</em></h1>
+        <p class="hero-desc" data-i18n="hero.desc">Teljes körű, minőségi szálláskiadás és ingatlanüzemeltetés vállalatvezetőktől a kiküldött munkavállalói csapatokig, a debreceni nagyipari beruházások közelében.</p>
+        <div class="hero-btns">
+            <a href="#kapcsolat" class="btn btn-blue"><i class="fas fa-paper-plane"></i><span data-i18n="hero.btn1">Kapcsolatfelvétel</span></a>
+            <a href="#szolgaltatas" class="btn btn-ghost"><i class="fas fa-list"></i><span data-i18n="hero.btn2">Szolgáltatásaink</span></a>
+        </div>
+    </div>
+    <div class="hero-scroll" onclick="goTo('rolunk')">
+        <span data-i18n="hero.scroll">Görgessen</span>
+        <i class="fas fa-chevron-down"></i>
+    </div>
+    <div class="hero-stats">
+        <div class="hero-stat"><span class="hero-stat-n">1200+</span><span class="hero-stat-l" data-i18n="hero.stat1l">Elszállásolt vendég</span></div>
+        <div class="hero-stat"><span class="hero-stat-n">24/7</span><span class="hero-stat-l" data-i18n="hero.stat2l">Elérhető kapcsolattartás</span></div>
+        <div class="hero-stat"><span class="hero-stat-n">Debrecen</span><span class="hero-stat-l" data-i18n="hero.stat3l">Ipari parkok közelében</span></div>
+        <div class="hero-stat"><span class="hero-stat-n" data-i18n="hero.stat4v">Teljes körű</span><span class="hero-stat-l" data-i18n="hero.stat4l">Ingatlanüzemeltetés</span></div>
+    </div>
+</section>
+
+<!-- RÓLUNK -->
+<section id="rolunk" class="sec sec-white">
+    <div class="container">
+        <div class="about-grid">
+            <div class="about-img">
+                <img src="kepek/about.jpg" alt="Intercorp">
+                <div class="about-tag">
+                    <strong>Otthonok. Lehetőségek.</strong>
+                    <span>Bizalom.</span>
+                </div>
+            </div>
+            <div class="about-text">
+                <span class="label" data-i18n="about.label">Rólunk</span>
+                <h2 class="title" data-i18n-html="about.title">Otthonok. Lehetőségek. Bizalom.</h2>
+                <div class="divider"></div>
+                <p class="about-p" style="margin-top:22px" data-i18n="about.p1">Az Intercorp Kft. Debrecenben és környékén biztosít minőségi, teljes körűen felszerelt lakhatást a nagyipari beruházásokhoz kapcsolódó vállalatok munkavállalói számára – a vezetőktől a kiküldött szakemberekig –, elsősorban koreai és kínai, de hazai partnereink részére is.</p>
+                <p class="about-p" data-i18n="about.p2">Célunk, hogy az áttelepülés a lehető legzökkenőmentesebb legyen: a megfelelő ingatlan kiválasztásától a napi ügyintézésig mindenben partnerei vagyunk.</p>
+                <a href="#kapcsolat" class="btn btn-dark" style="margin-top:8px"><span data-i18n="about.cta">Kapcsolatfelvétel</span> <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SZOLGÁLTATÁSOK -->
+<section id="szolgaltatas" class="sec sec-alt">
+    <div class="container">
+        <div class="sec-header c">
+            <span class="label" data-i18n="services.label">Szolgáltatások</span>
+            <h2 class="title" data-i18n="services.title">Amit kínálunk</h2>
+            <div class="divider c"></div>
+            <p class="subtitle" style="margin:18px auto 0" data-i18n="services.sub">Vezetői lakástól a teljes körű ingatlanüzemeltetésig – minden, amire egy külföldi csapat áttelepüléséhez szükség van.</p>
+        </div>
+        <div class="svc-grid">
+            <div class="svc-card">
+                <div class="svc-icon"><i class="fas fa-building"></i></div>
+                <h3 data-i18n="svc1.title">Vezetői lakások</h3>
+                <p data-i18n="svc1.desc">Prémium kategóriás, teljesen berendezett apartmanok egyéni felsővezetők számára, azonnal beköltözhető állapotban.</p>
+            </div>
+            <div class="svc-card">
+                <div class="svc-icon"><i class="fas fa-users"></i></div>
+                <h3 data-i18n="svc2.title">Céges csoportos elszállásolás</h3>
+                <p data-i18n="svc2.desc">Rugalmasan bővíthető szálláskapacitás nagyobb létszámú kiküldött csapatok, mérnökök és szakértők számára.</p>
+            </div>
+            <div class="svc-card">
+                <div class="svc-icon"><i class="fas fa-key"></i></div>
+                <h3 data-i18n="svc3.title">Teljes körű ingatlanüzemeltetés</h3>
+                <p data-i18n="svc3.desc">Takarítástól a karbantartásig, a rezsi ügyintézésétől a kapcsolattartásig – mindent levesszük a vállalat válláról.</p>
+            </div>
+            <div class="svc-card">
+                <div class="svc-icon"><i class="fas fa-globe"></i></div>
+                <h3 data-i18n="svc4.title">Relokációs segítség</h3>
+                <p data-i18n="svc4.desc">Segítünk a beköltözés, a hatósági ügyintézés és a mindennapi élet megszervezésében is.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- MIÉRT MI -->
+<section id="miertmi" class="sec sec-dark">
+    <div class="container">
+        <div class="sec-header c">
+            <span class="label" style="color:var(--accent2)" data-i18n="why.label">Miért minket</span>
+            <h2 class="title" style="color:#fff" data-i18n="why.title">Miért az Intercorp</h2>
+            <div class="divider c"></div>
+            <p class="subtitle" style="margin:18px auto 0;color:rgba(255,255,255,0.65)" data-i18n="why.sub">Négy ok, amiért partnereink minket választanak.</p>
+        </div>
+        <div class="why-grid">
+            <div class="why-card">
+                <div class="why-icon"><i class="fas fa-user-shield"></i></div>
+                <h3 data-i18n="why1.title">Diszkrét, professzionális ügyintézés</h3>
+                <p data-i18n="why1.desc">Ügyfeleink igényeit maximális diszkrécióval és professzionalizmussal kezeljük.</p>
+            </div>
+            <div class="why-card">
+                <div class="why-icon"><i class="fas fa-user-tie"></i></div>
+                <h3 data-i18n="why2.title">Teljes körű menedzsment</h3>
+                <p data-i18n="why2.desc">Egy kapcsolattartó, aki mindenről gondoskodik – a szerződéstől a napi problémák megoldásáig.</p>
+            </div>
+            <div class="why-card">
+                <div class="why-icon"><i class="fas fa-arrows-alt"></i></div>
+                <h3 data-i18n="why3.title">Rugalmas kapacitás</h3>
+                <p data-i18n="why3.desc">Néhány fős vezetői elhelyezéstől a több tucat fős csapatok elszállásolásáig skálázható megoldások.</p>
+            </div>
+            <div class="why-card">
+                <div class="why-icon"><i class="fas fa-industry"></i></div>
+                <h3 data-i18n="why4.title">Ipari övezetek közelében</h3>
+                <p data-i18n="why4.desc">Ingatlanjaink Debrecen ipari parkjaihoz és a városközponthoz is könnyen elérhető helyen találhatók.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOLYAMAT -->
+<section id="folyamat" class="sec sec-alt">
+    <div class="container">
+        <div class="sec-header c">
+            <span class="label" data-i18n="process.label">Folyamat</span>
+            <h2 class="title" data-i18n="process.title">Hogyan dolgozunk</h2>
+            <div class="divider c"></div>
+            <p class="subtitle" style="margin:18px auto 0" data-i18n="process.sub">Az első megkereséstől a beköltözésig – így néz ki az együttműködésünk.</p>
+        </div>
+        <div class="proc-grid">
+            <div class="proc-item">
+                <div class="proc-num">1</div>
+                <h3 data-i18n="process1.title">Érdeklődés</h3>
+                <p data-i18n="process1.desc">Töltse ki az űrlapot, vagy vegye fel velünk közvetlenül a kapcsolatot, igényei röviden összefoglalva.</p>
+            </div>
+            <div class="proc-item">
+                <div class="proc-num">2</div>
+                <h3 data-i18n="process2.title">Egyeztetés</h3>
+                <p data-i18n="process2.desc">Felmérjük az igényeket (létszám, időtartam, elhelyezkedés), majd személyre szabott ajánlatot küldünk.</p>
+            </div>
+            <div class="proc-item">
+                <div class="proc-num">3</div>
+                <h3 data-i18n="process3.title">Bejárás és kijelölés</h3>
+                <p data-i18n="process3.desc">Bemutatjuk a szóba jöhető ingatlanokat, és közösen kiválasztjuk a legmegfelelőbb megoldást.</p>
+            </div>
+            <div class="proc-item">
+                <div class="proc-num">4</div>
+                <h3 data-i18n="process4.title">Beköltözés és support</h3>
+                <p data-i18n="process4.desc">Gondoskodunk a zökkenőmentes beköltözésről, majd a bérleti időszak alatt is folyamatos támogatást nyújtunk.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- KAPCSOLAT -->
+<section id="kapcsolat" class="sec sec-white">
+    <div class="container">
+        <div class="ct-grid">
+            <div class="ct-info">
+                <span class="label" data-i18n="contact.label">Kapcsolat</span>
+                <h2 class="title" data-i18n="contact.title">Vegye fel velünk a kapcsolatot</h2>
+                <div class="divider"></div>
+                <p class="subtitle" style="margin:18px 0 26px" data-i18n="contact.desc">Írja meg igényeit az alábbi űrlapon, és 1 munkanapon belül válaszolunk.</p>
+                <div class="ct-info-card">
+                    <div class="ct-item">
+                        <div class="ct-icon"><i class="fas fa-user"></i></div>
+                        <div class="ct-txt">
+                            <strong data-i18n="contact.clabel">Kapcsolattartó</strong>
+                            <span class="ct-val" data-c="person">Intercorp ügyfélszolgálat</span>
+                        </div>
+                    </div>
+                    <div class="ct-item">
+                        <div class="ct-icon"><i class="fas fa-phone"></i></div>
+                        <div class="ct-txt">
+                            <strong data-i18n="contact.cphone">Telefon</strong>
+                            <a href="tel:+36300000000" data-c="phone1" data-c-href="phone1_href">+36 30 000 0000</a>
+                        </div>
+                    </div>
+                    <div class="ct-item">
+                        <div class="ct-icon"><i class="fas fa-envelope"></i></div>
+                        <div class="ct-txt">
+                            <strong data-i18n="contact.cemail">E-mail</strong>
+                            <a href="mailto:info@intercorp.hu" data-c="email" data-c-href="email_href">info@intercorp.hu</a>
+                        </div>
+                    </div>
+                    <div class="ct-item">
+                        <div class="ct-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div class="ct-txt">
+                            <strong data-i18n="contact.addr">Székhely</strong>
+                            <span class="ct-val" data-c="address">Debrecen</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ct-form">
+                <h3 class="ct-form-title" data-i18n="contact.formtitle">Megkeresés küldése</h3>
+                <!--
+                    Éles üzemmódhoz: regisztráljon a formspree.io oldalon (ingyenes),
+                    hozzon létre egy formot az info@intercorp.hu címre,
+                    és cserélje az action értékét: https://formspree.io/f/FORMSPREE_ID_TODO
+                -->
+                <form id="ctForm" action="https://formspree.io/f/FORMSPREE_ID_TODO" method="POST" novalidate>
+                    <input type="hidden" name="_subject" value="Megkeresés – Intercorp">
+                    <div class="row2">
+                        <div class="fg">
+                            <label for="cegnev" data-i18n="form.company">Cégnév *</label>
+                            <input type="text" id="cegnev" name="cegnev" required>
+                        </div>
+                        <div class="fg">
+                            <label for="nev" data-i18n="form.contact_name">Kapcsolattartó neve *</label>
+                            <input type="text" id="nev" name="nev" required>
+                        </div>
+                    </div>
+                    <div class="row2">
+                        <div class="fg">
+                            <label for="email" data-i18n="form.email">E-mail cím *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="fg">
+                            <label for="tel" data-i18n="form.phone">Telefonszám</label>
+                            <input type="tel" id="tel" name="telefon">
+                        </div>
+                    </div>
+                    <div class="fg">
+                        <label for="letszam" data-i18n="form.headcount">Hány fő elhelyezését tervezi?</label>
+                        <input type="text" id="letszam" name="letszam" placeholder="pl. 1 fő / 5 fő / 20+ fő" data-i18n-ph="form.headcount_ph">
+                    </div>
+                    <div class="fg">
+                        <label for="uzenet" data-i18n="form.msg">Üzenet / Igény leírása</label>
+                        <textarea id="uzenet" name="uzenet" placeholder="Írja le röviden, milyen típusú lakhatásra, mikortól és meddig van szüksége..." data-i18n-ph="form.msg_ph"></textarea>
+                    </div>
+                    <div class="fg-checkbox" id="aszfFg">
+                        <input type="checkbox" id="aszfAccept" name="aszf_elfogadva">
+                        <label for="aszfAccept" data-i18n-html="form.aszf">Elolvastam és elfogadom az <a href="#" onclick="openModal('modal-aszf');return false;">Általános Együttműködési Feltételeket</a> *</label>
+                    </div>
+                    <button type="submit" class="btn btn-blue btn-submit">
+                        <i class="fas fa-paper-plane"></i> <span data-i18n="form.submit">Küldés</span>
+                    </button>
+                </form>
+                <div class="form-ok" id="formOk">
+                    <i class="fas fa-check-circle"></i>
+                    <h3 data-i18n="form.ok1">Köszönjük megkeresését!</h3>
+                    <p data-i18n="form.ok2">Munkatársunk hamarosan felveszi Önnel a kapcsolatot.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="container">
+        <div class="ft-in">
+            <div class="ft-name">INTERCORP</div>
+            <div class="ft-sub">Debrecen · Corporate Housing</div>
+            <ul class="ft-nav">
+                <li><a href="#rolunk"       data-i18n="ft.about">Rólunk</a></li>
+                <li><a href="#szolgaltatas" data-i18n="ft.services">Szolgáltatások</a></li>
+                <li><a href="#miertmi"      data-i18n="ft.why">Miért mi</a></li>
+                <li><a href="#kapcsolat"    data-i18n="ft.contact">Kapcsolat</a></li>
+            </ul>
+            <div class="ft-line"></div>
+            <p class="ft-copy">
+                &copy; 2026 Intercorp Kft. &nbsp;·&nbsp; Debrecen &nbsp;·&nbsp;
+                <a href="mailto:info@intercorp.hu" data-c="email" data-c-href="email_href" style="color:rgba(255,255,255,0.55)">info@intercorp.hu</a>
+            </p>
+            <p class="ft-legal">
+                <a href="#" onclick="openModal('modal-aszf');return false;" data-i18n="ft.legal1">Együttműködési feltételek</a>
+                &nbsp;·&nbsp;
+                <a href="#" onclick="openModal('modal-gdpr');return false;" data-i18n="ft.legal2">Adatkezelési tájékoztató</a>
+                &nbsp;·&nbsp;
+                <a href="#" onclick="openModal('modal-impresszum');return false;" data-i18n="ft.legal3">Impresszum</a>
+            </p>
+        </div>
+    </div>
+</footer>
+
+<!-- MODAL: ÁSZF -->
+<div class="modal-ov" id="modal-aszf" role="dialog" aria-modal="true" aria-labelledby="aszf-title">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modal-aszf')" aria-label="Bezárás">&times;</button>
+    <h2 id="aszf-title">Általános Együttműködési Feltételek</h2>
+    <div id="legal-aszf">
+    <p class="modal-sub">Betöltés...</p>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: ADATKEZELÉSI TÁJÉKOZTATÓ -->
+<div class="modal-ov" id="modal-gdpr" role="dialog" aria-modal="true" aria-labelledby="gdpr-title">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modal-gdpr')" aria-label="Bezárás">&times;</button>
+    <h2 id="gdpr-title">Adatkezelési Tájékoztató</h2>
+    <div id="legal-gdpr">
+    <p class="modal-sub">Betöltés...</p>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: IMPRESSZUM -->
+<div class="modal-ov" id="modal-impresszum" role="dialog" aria-modal="true" aria-labelledby="imp-title">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modal-impresszum')" aria-label="Bezárás">&times;</button>
+    <h2 id="imp-title">Impresszum</h2>
+    <div id="legal-impresszum">
+    <p class="modal-sub">Betöltés...</p>
+    </div>
+  </div>
+</div>
+
+<!-- COOKIE BANNER -->
+<div class="cookie-bar" id="cookieBar">
+    <p data-i18n-html="cookie.text">Ez az oldal böngésző-tárhelyet és külső CDN-szolgáltatásokat (Google Fonts) alkalmaz a működéshez és a nyelvi beállítás megőrzéséhez. <a href="#" onclick="openModal('modal-gdpr');return false;">Adatkezelési tájékoztató</a></p>
+    <button onclick="acceptCookie()" data-i18n="cookie.btn">Értettem</button>
+</div>
+
+<!-- SCRIPTS -->
+<script>
+    // ── MULTILINGUAL ─────────────────────────────────────────
+    const LANGS = {
+        hu: {
+            'nav.about':'Rólunk','nav.services':'Szolgáltatások','nav.why':'Miért mi','nav.contact':'Kapcsolat','nav.cta':'Kapcsolatfelvétel',
+            'hero.badge':'Debrecen és környéke, Magyarország',
+            'hero.title':'Vállalati lakhatás <em>Debrecenben és környékén</em>',
+            'hero.desc':'Teljes körű, minőségi szálláskiadás és ingatlanüzemeltetés vállalatvezetőktől a kiküldött munkavállalói csapatokig, a debreceni nagyipari beruházások közelében.',
+            'hero.btn1':'Kapcsolatfelvétel','hero.btn2':'Szolgáltatásaink','hero.scroll':'Görgessen',
+            'hero.stat1l':'Elszállásolt vendég','hero.stat2l':'Elérhető kapcsolattartás','hero.stat3l':'Ipari parkok közelében','hero.stat4v':'Teljes körű','hero.stat4l':'Ingatlanüzemeltetés',
+            'about.label':'Rólunk','about.title':'Otthonok. Lehetőségek. Bizalom.',
+            'about.p1':'Az Intercorp Kft. Debrecenben és környékén biztosít minőségi, teljes körűen felszerelt lakhatást a nagyipari beruházásokhoz kapcsolódó vállalatok munkavállalói számára – a vezetőktől a kiküldött szakemberekig –, elsősorban koreai és kínai, de hazai partnereink részére is.',
+            'about.p2':'Célunk, hogy az áttelepülés a lehető legzökkenőmentesebb legyen: a megfelelő ingatlan kiválasztásától a napi ügyintézésig mindenben partnerei vagyunk.',
+            'about.cta':'Kapcsolatfelvétel',
+            'services.label':'Szolgáltatások','services.title':'Amit kínálunk','services.sub':'Vezetői lakástól a teljes körű ingatlanüzemeltetésig – minden, amire egy külföldi csapat áttelepüléséhez szükség van.',
+            'svc1.title':'Vezetői lakások','svc1.desc':'Prémium kategóriás, teljesen berendezett apartmanok egyéni felsővezetők számára, azonnal beköltözhető állapotban.',
+            'svc2.title':'Céges csoportos elszállásolás','svc2.desc':'Rugalmasan bővíthető szálláskapacitás nagyobb létszámú kiküldött csapatok, mérnökök és szakértők számára.',
+            'svc3.title':'Teljes körű ingatlanüzemeltetés','svc3.desc':'Takarítástól a karbantartásig, a rezsi ügyintézésétől a kapcsolattartásig – mindent levesszük a vállalat válláról.',
+            'svc4.title':'Relokációs segítség','svc4.desc':'Segítünk a beköltözés, a hatósági ügyintézés és a mindennapi élet megszervezésében is.',
+            'why.label':'Miért minket','why.title':'Miért az Intercorp','why.sub':'Négy ok, amiért partnereink minket választanak.',
+            'why1.title':'Diszkrét, professzionális ügyintézés','why1.desc':'Ügyfeleink igényeit maximális diszkrécióval és professzionalizmussal kezeljük.',
+            'why2.title':'Teljes körű menedzsment','why2.desc':'Egy kapcsolattartó, aki mindenről gondoskodik – a szerződéstől a napi problémák megoldásáig.',
+            'why3.title':'Rugalmas kapacitás','why3.desc':'Néhány fős vezetői elhelyezéstől a több tucat fős csapatok elszállásolásáig skálázható megoldások.',
+            'why4.title':'Ipari övezetek közelében','why4.desc':'Ingatlanjaink Debrecen ipari parkjaihoz és a városközponthoz is könnyen elérhető helyen találhatók.',
+            'process.label':'Folyamat','process.title':'Hogyan dolgozunk','process.sub':'Az első megkereséstől a beköltözésig – így néz ki az együttműködésünk.',
+            'process1.title':'Érdeklődés','process1.desc':'Töltse ki az űrlapot, vagy vegye fel velünk közvetlenül a kapcsolatot, igényei röviden összefoglalva.',
+            'process2.title':'Egyeztetés','process2.desc':'Felmérjük az igényeket (létszám, időtartam, elhelyezkedés), majd személyre szabott ajánlatot küldünk.',
+            'process3.title':'Bejárás és kijelölés','process3.desc':'Bemutatjuk a szóba jöhető ingatlanokat, és közösen kiválasztjuk a legmegfelelőbb megoldást.',
+            'process4.title':'Beköltözés és support','process4.desc':'Gondoskodunk a zökkenőmentes beköltözésről, majd a bérleti időszak alatt is folyamatos támogatást nyújtunk.',
+            'contact.label':'Kapcsolat','contact.title':'Vegye fel velünk a kapcsolatot','contact.desc':'Írja meg igényeit az alábbi űrlapon, és 1 munkanapon belül válaszolunk.',
+            'contact.clabel':'Kapcsolattartó','contact.cphone':'Telefon','contact.cemail':'E-mail','contact.formtitle':'Megkeresés küldése','contact.addr':'Székhely',
+            'form.company':'Cégnév *','form.contact_name':'Kapcsolattartó neve *','form.email':'E-mail cím *','form.phone':'Telefonszám',
+            'form.headcount':'Hány fő elhelyezését tervezi?','form.headcount_ph':'pl. 1 fő / 5 fő / 20+ fő',
+            'form.msg':'Üzenet / Igény leírása','form.msg_ph':'Írja le röviden, milyen típusú lakhatásra, mikortól és meddig van szüksége...',
+            'form.aszf':'Elolvastam és elfogadom az <a href="#" onclick="openModal(\'modal-aszf\');return false;">Általános Együttműködési Feltételeket</a> *',
+            'form.submit':'Küldés','form.ok1':'Köszönjük megkeresését!','form.ok2':'Munkatársunk hamarosan felveszi Önnel a kapcsolatot.',
+            'ft.about':'Rólunk','ft.services':'Szolgáltatások','ft.why':'Miért mi','ft.contact':'Kapcsolat',
+            'ft.legal1':'Együttműködési feltételek','ft.legal2':'Adatkezelési tájékoztató','ft.legal3':'Impresszum',
+            'cookie.text':'Ez az oldal böngésző-tárhelyet és külső CDN-szolgáltatásokat (Google Fonts) alkalmaz a működéshez és a nyelvi beállítás megőrzéséhez. <a href="#" onclick="openModal(\'modal-gdpr\');return false;">Adatkezelési tájékoztató</a>',
+            'cookie.btn':'Értettem',
+        },
+        en: {
+            'nav.about':'About','nav.services':'Services','nav.why':'Why Us','nav.contact':'Contact','nav.cta':'Get in Touch',
+            'hero.badge':'Debrecen and Surroundings, Hungary',
+            'hero.title':'Corporate Housing in <em>Debrecen and Its Surroundings</em>',
+            'hero.desc':'Full-service, quality accommodation and property management from company executives to delegated worker teams, close to Debrecen\'s major industrial investments.',
+            'hero.btn1':'Get in Touch','hero.btn2':'Our Services','hero.scroll':'Scroll',
+            'hero.stat1l':'Guests Housed','hero.stat2l':'Point of contact availability','hero.stat3l':'Close to industrial parks','hero.stat4v':'Full-service','hero.stat4l':'Property management',
+            'about.label':'About','about.title':'Homes. Opportunities. Trust.',
+            'about.p1':'Intercorp Kft. provides quality, fully furnished housing in Debrecen and its surrounding area for employees of companies connected to the region\'s major industrial investments — from executives to delegated specialists — primarily for our Korean and Chinese partners, but also for domestic companies.',
+            'about.p2':'Our goal is to make relocation as seamless as possible: from selecting the right property to day-to-day administration, we\'re your partner every step of the way.',
+            'about.cta':'Get in Touch',
+            'services.label':'Services','services.title':'What We Offer','services.sub':'From executive apartments to full property management — everything needed to relocate a foreign team.',
+            'svc1.title':'Executive Apartments','svc1.desc':'Premium, fully furnished apartments for individual senior executives, ready to move in immediately.',
+            'svc2.title':'Corporate Group Housing','svc2.desc':'Flexibly scalable accommodation capacity for larger delegations, engineers and expert teams.',
+            'svc3.title':'Full Property Management','svc3.desc':'From cleaning to maintenance, from utility administration to communication — we take everything off the company\'s hands.',
+            'svc4.title':'Relocation Assistance','svc4.desc':'We help with moving in, official administration and everyday life.',
+            'why.label':'Why Us','why.title':'Why Intercorp','why.sub':'Four reasons our partners choose us.',
+            'why1.title':'Discreet & Professional','why1.desc':'We handle our clients\' needs with complete discretion and professionalism.',
+            'why2.title':'Full-Service Management','why2.desc':'One point of contact who takes care of everything — from the contract to day-to-day issues.',
+            'why3.title':'Flexible Capacity','why3.desc':'Scalable solutions from housing a single executive to accommodating teams of dozens.',
+            'why4.title':'Close to Industrial Zones','why4.desc':'Our properties are easily accessible to Debrecen\'s industrial parks as well as the city centre.',
+            'process.label':'Process','process.title':'How We Work','process.sub':'From first contact to move-in — here\'s what working with us looks like.',
+            'process1.title':'Inquiry','process1.desc':'Fill out the form or contact us directly with a brief summary of your needs.',
+            'process2.title':'Consultation','process2.desc':'We assess your requirements (headcount, duration, location) and send a tailored offer.',
+            'process3.title':'Viewing & Selection','process3.desc':'We present the suitable properties and jointly select the best solution.',
+            'process4.title':'Move-in & Support','process4.desc':'We ensure a smooth move-in and provide ongoing support throughout the lease period.',
+            'contact.label':'Contact','contact.title':'Get in Touch','contact.desc':'Describe your needs in the form below and we\'ll respond within 1 business day.',
+            'contact.clabel':'Contact Person','contact.cphone':'Phone','contact.cemail':'Email','contact.formtitle':'Send an Inquiry','contact.addr':'Registered Office',
+            'form.company':'Company Name *','form.contact_name':'Contact Person *','form.email':'Email Address *','form.phone':'Phone Number',
+            'form.headcount':'How many people need housing?','form.headcount_ph':'e.g. 1 person / 5 people / 20+ people',
+            'form.msg':'Message / Description of Needs','form.msg_ph':'Briefly describe the type of housing, timeframe and duration you need...',
+            'form.aszf':'I have read and accept the <a href="#" onclick="openModal(\'modal-aszf\');return false;">General Cooperation Terms</a> *',
+            'form.submit':'Send','form.ok1':'Thank you for your inquiry!','form.ok2':'Our colleague will contact you shortly.',
+            'ft.about':'About','ft.services':'Services','ft.why':'Why Us','ft.contact':'Contact',
+            'ft.legal1':'Cooperation Terms','ft.legal2':'Privacy Notice','ft.legal3':'Legal Notice',
+            'cookie.text':'This site uses browser storage and external CDN services (Google Fonts) for functionality and to remember your language setting. <a href="#" onclick="openModal(\'modal-gdpr\');return false;">Privacy Notice</a>',
+            'cookie.btn':'Got it',
+        },
+        ko: {
+            'nav.about':'회사 소개','nav.services':'서비스','nav.why':'선택 이유','nav.contact':'문의하기','nav.cta':'문의하기',
+            'hero.badge':'헝가리 데브레첸 및 인근 지역',
+            'hero.title':'데브레첸 및 인근 지역의 <em>기업 주거 솔루션</em>',
+            'hero.desc':'데브레첸의 대규모 산업 투자 인근에서 기업 임원부터 파견 근로자 팀까지, 전 직급을 위한 풀서비스 숙박 및 부동산 관리 서비스를 제공합니다.',
+            'hero.btn1':'문의하기','hero.btn2':'서비스 보기','hero.scroll':'스크롤',
+            'hero.stat1l':'누적 투숙객','hero.stat2l':'상시 연락 가능','hero.stat3l':'산업단지 인근','hero.stat4v':'종합','hero.stat4l':'부동산 관리',
+            'about.label':'회사 소개','about.title':'주거. 기회. 신뢰.',
+            'about.p1':'Intercorp Kft.는 데브레첸 및 인근 지역에서 대규모 산업 투자와 연계된 기업의 임직원을 위한 고품질 완비형 주거를 제공합니다 – 임원부터 파견 전문 인력까지 – 주로 한국 및 중국 파트너사를 위해, 그리고 국내 기업에도 제공됩니다.',
+            'about.p2':'저희의 목표는 이주 과정을 최대한 원활하게 만드는 것입니다. 적합한 부동산 선정부터 일상적인 행정 업무까지, 모든 과정을 함께합니다.',
+            'about.cta':'문의하기',
+            'services.label':'서비스','services.title':'제공 서비스','services.sub':'임원 아파트부터 종합 부동산 관리까지 — 해외 팀의 이주에 필요한 모든 것을 제공합니다.',
+            'svc1.title':'임원 아파트','svc1.desc':'개별 고위 임원을 위한 프리미엄 완비형 아파트로, 즉시 입주가 가능합니다.',
+            'svc2.title':'기업 단체 숙소','svc2.desc':'대규모 파견팀, 엔지니어 및 전문 인력을 위해 유연하게 확장 가능한 숙박 공간입니다.',
+            'svc3.title':'종합 부동산 관리','svc3.desc':'청소부터 유지보수, 공과금 처리부터 응대까지 — 기업의 부담을 모두 덜어드립니다.',
+            'svc4.title':'이주 지원 서비스','svc4.desc':'입주, 행정 절차, 일상생활 정착까지 도와드립니다.',
+            'why.label':'선택 이유','why.title':'Intercorp를 선택하는 이유','why.sub':'파트너들이 저희를 선택하는 네 가지 이유입니다.',
+            'why1.title':'신중하고 전문적인 서비스','why1.desc':'고객의 요구 사항을 철저한 신중함과 전문성으로 처리합니다.',
+            'why2.title':'종합 관리 서비스','why2.desc':'계약부터 일상적인 문제 해결까지 모든 것을 담당하는 단일 담당자를 제공합니다.',
+            'why3.title':'유연한 수용 규모','why3.desc':'임원 1인 배정부터 수십 명 규모의 팀 숙소까지 확장 가능한 솔루션을 제공합니다.',
+            'why4.title':'산업단지 인근 위치','why4.desc':'저희 매물은 데브레첸의 산업단지와 시내 중심가 모두 접근이 용이한 곳에 위치해 있습니다.',
+            'process.label':'진행 절차','process.title':'진행 방식','process.sub':'최초 문의부터 입주까지, 저희와의 협업 과정을 소개합니다.',
+            'process1.title':'문의','process1.desc':'양식을 작성하시거나 요구 사항을 간단히 요약하여 직접 연락해 주세요.',
+            'process2.title':'상담','process2.desc':'인원, 기간, 위치 등 요구 사항을 파악한 후 맞춤형 제안을 보내드립니다.',
+            'process3.title':'현장 답사 및 선정','process3.desc':'적합한 매물을 안내해 드리고 함께 최적의 솔루션을 선택합니다.',
+            'process4.title':'입주 및 지원','process4.desc':'원활한 입주를 지원하며, 임대 기간 동안 지속적인 지원을 제공합니다.',
+            'contact.label':'문의','contact.title':'문의하기','contact.desc':'아래 양식에 요구 사항을 작성해 주시면 1영업일 이내에 답변드립니다.',
+            'contact.clabel':'담당자','contact.cphone':'전화번호','contact.cemail':'이메일','contact.formtitle':'문의 보내기','contact.addr':'본사 주소',
+            'form.company':'회사명 *','form.contact_name':'담당자 성명 *','form.email':'이메일 주소 *','form.phone':'전화번호',
+            'form.headcount':'몇 명의 주거 공간이 필요하신가요?','form.headcount_ph':'예: 1인 / 5인 / 20인 이상',
+            'form.msg':'메시지 / 요청 사항','form.msg_ph':'필요하신 주거 유형, 시작 시기 및 기간을 간략히 적어주세요...',
+            'form.aszf':'<a href="#" onclick="openModal(\'modal-aszf\');return false;">일반 협력 조건</a>을 읽었으며 이에 동의합니다 *',
+            'form.submit':'보내기','form.ok1':'문의해 주셔서 감사합니다!','form.ok2':'담당자가 곧 연락드리겠습니다.',
+            'ft.about':'회사 소개','ft.services':'서비스','ft.why':'선택 이유','ft.contact':'문의',
+            'ft.legal1':'협력 조건','ft.legal2':'개인정보 처리방침','ft.legal3':'법적 고지',
+            'cookie.text':'본 웹사이트는 원활한 서비스 제공과 언어 설정 저장을 위해 브라우저 저장소와 외부 CDN 서비스(Google Fonts)를 사용합니다. <a href="#" onclick="openModal(\'modal-gdpr\');return false;">개인정보 처리방침</a>',
+            'cookie.btn':'확인',
+        },
+        zh: {
+            'nav.about':'关于我们','nav.services':'服务项目','nav.why':'为何选择我们','nav.contact':'联系我们','nav.cta':'联系我们',
+            'hero.badge':'匈牙利·德布勒森及周边地区',
+            'hero.title':'德布勒森及周边地区的<em>企业住房</em>',
+            'hero.desc':'在德布勒森重大工业投资项目附近，为从企业高管到外派员工团队的各层级人员提供全方位的住房与物业管理服务。',
+            'hero.btn1':'联系我们','hero.btn2':'查看服务','hero.scroll':'向下滚动',
+            'hero.stat1l':'累计安置住客','hero.stat2l':'随时联系','hero.stat3l':'靠近工业园区','hero.stat4v':'全方位','hero.stat4l':'物业管理',
+            'about.label':'关于我们','about.title':'家园。机遇。信任。',
+            'about.p1':'Intercorp Kft. 在德布勒森及周边地区为与重大工业投资相关的企业员工提供高品质、全套设施的住房——从高管到外派专业人员——主要面向我们的韩国和中国合作伙伴，同时也服务本地企业。',
+            'about.p2':'我们的目标是让搬迁过程尽可能顺利：从挑选合适的房源到日常事务处理，我们全程为您提供支持。',
+            'about.cta':'联系我们',
+            'services.label':'服务项目','services.title':'我们提供的服务','services.sub':'从高管公寓到全方位物业管理——外派团队搬迁所需的一切，我们都能提供。',
+            'svc1.title':'高管公寓','svc1.desc':'为个人高管提供的高品质全套设施公寓，可即时入住。',
+            'svc2.title':'企业团体住房','svc2.desc':'可灵活扩展的住宿方案，适用于大规模外派团队、工程师及专业人员。',
+            'svc3.title':'全方位物业管理','svc3.desc':'从清洁到维护，从水电费缴纳到日常沟通——我们为企业分担一切。',
+            'svc4.title':'搬迁协助服务','svc4.desc':'我们协助办理入住、行政手续及日常生活安排。',
+            'why.label':'为何选择我们','why.title':'为何选择 Intercorp','why.sub':'合作伙伴选择我们的四大理由。',
+            'why1.title':'审慎专业的服务','why1.desc':'我们以高度的审慎和专业精神处理客户的各项需求。',
+            'why2.title':'全方位管理服务','why2.desc':'一位专属联系人负责一切事务——从合同签订到日常问题处理。',
+            'why3.title':'灵活的容纳规模','why3.desc':'从单人高管住宿到数十人团队住宿，提供可灵活扩展的解决方案。',
+            'why4.title':'靠近工业园区','why4.desc':'我们的房源便于前往德布勒森的工业园区及市中心。',
+            'process.label':'合作流程','process.title':'我们的工作方式','process.sub':'从首次联系到入住——以下是与我们合作的流程。',
+            'process1.title':'咨询','process1.desc':'请填写表单，或直接联系我们并简要说明您的需求。',
+            'process2.title':'需求沟通','process2.desc':'我们评估您的需求（人数、时长、位置），并提供量身定制的方案。',
+            'process3.title':'看房与确定','process3.desc':'我们为您展示合适的房源，并共同确定最佳方案。',
+            'process4.title':'入住与支持','process4.desc':'我们确保顺利入住，并在租赁期间持续提供支持。',
+            'contact.label':'联系我们','contact.title':'联系我们','contact.desc':'请在下方表单中描述您的需求，我们将在1个工作日内回复。',
+            'contact.clabel':'联系人','contact.cphone':'电话','contact.cemail':'邮箱','contact.formtitle':'发送咨询','contact.addr':'注册地址',
+            'form.company':'公司名称 *','form.contact_name':'联系人姓名 *','form.email':'邮箱地址 *','form.phone':'电话号码',
+            'form.headcount':'需要为多少人安排住宿？','form.headcount_ph':'例如：1人 / 5人 / 20人以上',
+            'form.msg':'留言 / 需求说明','form.msg_ph':'请简要说明所需住房类型、开始时间及租期...',
+            'form.aszf':'我已阅读并接受<a href="#" onclick="openModal(\'modal-aszf\');return false;">《一般合作条款》</a> *',
+            'form.submit':'发送','form.ok1':'感谢您的咨询！','form.ok2':'我们的工作人员将很快与您联系。',
+            'ft.about':'关于我们','ft.services':'服务项目','ft.why':'为何选择我们','ft.contact':'联系我们',
+            'ft.legal1':'合作条款','ft.legal2':'隐私政策','ft.legal3':'法律声明',
+            'cookie.text':'本网站使用浏览器存储和外部CDN服务（Google Fonts）以确保正常运行并记住您的语言设置。<a href="#" onclick="openModal(\'modal-gdpr\');return false;">隐私政策</a>',
+            'cookie.btn':'知道了',
+        }
+    };
+
+    function setLang(lang) {
+        if (!LANGS[lang]) return;
+        localStorage.setItem('lang', lang);
+        const t = LANGS[lang];
+
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const v = t[el.dataset.i18n];
+            if (v !== undefined) el.textContent = v;
+        });
+        document.querySelectorAll('[data-i18n-html]').forEach(el => {
+            const v = t[el.dataset.i18nHtml];
+            if (v !== undefined) el.innerHTML = v;
+        });
+        document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+            const v = t[el.dataset.i18nPh];
+            if (v !== undefined) el.placeholder = v;
+        });
+
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.lang === lang);
+        });
+        document.documentElement.lang = lang;
+    }
+
+    // Navbar scroll
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 50));
+
+    // Mobile menu
+    let menuOpen = false;
+    document.getElementById('hbg').addEventListener('click', () => {
+        menuOpen = !menuOpen;
+        document.getElementById('mobMenu').classList.toggle('open', menuOpen);
+    });
+    function closeMenu() { menuOpen = false; document.getElementById('mobMenu').classList.remove('open'); }
+
+    function goTo(id) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const navH = document.getElementById('nav').offsetHeight;
+        window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - navH, behavior: 'smooth' });
+    }
+
+    // ── CONTACT FORM ─────────────────────────────────────────
+    const form = document.getElementById('ctForm');
+    form.addEventListener('submit', async e => {
+        e.preventDefault();
+
+        const required = [
+            { el: document.getElementById('cegnev'), fg: document.getElementById('cegnev').closest('.fg') },
+            { el: document.getElementById('nev'),    fg: document.getElementById('nev').closest('.fg') },
+            { el: document.getElementById('email'),  fg: document.getElementById('email').closest('.fg') },
+        ];
+        form.querySelectorAll('.fg.err').forEach(el => el.classList.remove('err'));
+        const invalid = required.filter(f => !f.el.value.trim());
+        const aszfEl = document.getElementById('aszfAccept');
+        const aszfFg = document.getElementById('aszfFg');
+        aszfFg.classList.remove('err');
+        if (invalid.length || !aszfEl.checked) {
+            invalid.forEach(f => f.fg.classList.add('err'));
+            if (!aszfEl.checked) aszfFg.classList.add('err');
+            const firstErr = invalid[0] ? invalid[0].fg : aszfFg;
+            const top = firstErr.getBoundingClientRect().top + window.scrollY - 90;
+            window.scrollTo({ top, behavior: 'smooth' });
+            return;
+        }
+
+        const btn = form.querySelector('.btn-submit');
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+        try {
+            const r = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } });
+            if (r.ok) {
+                form.style.display = 'none';
+                document.getElementById('formOk').style.display = 'block';
+            } else { throw new Error(); }
+        } catch {
+            const d = new FormData(form);
+            const subj = encodeURIComponent('Megkeresés – Intercorp');
+            const body = encodeURIComponent(
+                `Cégnév: ${d.get('cegnev')}\nKapcsolattartó: ${d.get('nev')}\nE-mail: ${d.get('email')}\nTelefon: ${d.get('telefon')||'–'}\nLétszám: ${d.get('letszam')||'–'}\n\nÜzenet:\n${d.get('uzenet')||'–'}`
+            );
+            window.location.href = `mailto:info@intercorp.hu?subject=${subj}&body=${body}`;
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-paper-plane"></i> <span data-i18n="form.submit">Küldés</span>';
+        }
+    });
+
+    // ── DYNAMIC CONTENT (content.json) ───────────────────────
+    function applyContent(c) {
+        document.querySelectorAll('[data-c]').forEach(el => {
+            const v = c[el.dataset.c];
+            if (v !== undefined) el.textContent = v;
+        });
+        document.querySelectorAll('[data-c-href]').forEach(el => {
+            const v = c[el.dataset.cHref];
+            if (v !== undefined) el.href = v;
+        });
+        document.querySelectorAll('[data-hide-if-empty]').forEach(el => {
+            el.style.display = c[el.dataset.hideIfEmpty] ? '' : 'none';
+        });
+
+        const script = document.createElement('script');
+        script.type = 'application/ld+json';
+        script.textContent = JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Organization',
+            name: 'Intercorp Kft.',
+            image: location.origin + '/kepek/hero.jpg',
+            address: { '@type': 'PostalAddress', addressLocality: 'Debrecen', addressCountry: 'HU' },
+            email: c.email || '',
+            telephone: c.phone1 || '',
+        });
+        document.head.appendChild(script);
+    }
+    fetch('content.json?v=' + Date.now()).then(r => r.json()).then(applyContent).catch(() => {});
+
+    // Legal documents — admin-editable, fallback to built-in text above
+    fetch('legal.json?v=' + Date.now())
+        .then(r => r.json())
+        .then(legal => {
+            if (legal.aszf)       document.getElementById('legal-aszf').innerHTML = legal.aszf;
+            if (legal.gdpr)       document.getElementById('legal-gdpr').innerHTML = legal.gdpr;
+            if (legal.impresszum) document.getElementById('legal-impresszum').innerHTML = legal.impresszum;
+        })
+        .catch(() => {});
+
+    // Editable site texts (hero/about/services) — admin-szerkeszthető override a LANGS felett
+    fetch('texts.json?v=' + Date.now())
+        .then(r => r.json())
+        .then(texts => {
+            Object.keys(texts).forEach(lang => {
+                if (LANGS[lang]) Object.assign(LANGS[lang], texts[lang]);
+            });
+            setLang(localStorage.getItem('lang') || 'hu');
+        })
+        .catch(() => {});
+
+    // ── MODALS ────────────────────────────────────────────────
+    function openModal(id) {
+        document.getElementById(id).classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeModal(id) {
+        document.getElementById(id).classList.remove('open');
+        document.body.style.overflow = '';
+    }
+    document.querySelectorAll('.modal-ov').forEach(ov => {
+        ov.addEventListener('click', e => { if (e.target === ov) closeModal(ov.id); });
+    });
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') document.querySelectorAll('.modal-ov.open').forEach(ov => closeModal(ov.id));
+    });
+
+    // ── COOKIE BANNER ─────────────────────────────────────────
+    function acceptCookie() {
+        localStorage.setItem('cookieOk', '1');
+        document.getElementById('cookieBar').style.display = 'none';
+    }
+    if (!localStorage.getItem('cookieOk')) {
+        document.getElementById('cookieBar').style.display = 'flex';
+    }
+
+    setLang(localStorage.getItem('lang') || 'hu');
+</script>
+</body>
+</html>

@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intercorp – Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --dark: #12181D; --accent: #2E6FF2; --accent2: #D9A54E;
+            --bg: #F7F8FA; --bg-alt: #EEF1F5; --text: #1D2630; --muted: #667085;
+            --heading: 'Playfair Display', Georgia, serif;
+            --body: 'Inter', -apple-system, sans-serif;
+            --err: #c0392b; --ok: #27ae60;
+        }
+        body { font-family: var(--body); background: var(--bg); color: var(--text); min-height: 100vh; }
+
+        header { background: var(--dark); padding: 18px 32px; display: flex; align-items: center; justify-content: space-between; }
+        .hd-brand { font-family: var(--heading); font-size: 1.4rem; font-weight: 700; color: #fff; }
+        .hd-badge { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent2); background: rgba(255,255,255,0.07); padding: 4px 10px; border-radius: 3px; }
+        .hd-back { color: var(--accent2); font-size: 0.82rem; text-decoration: none; }
+        .hd-back:hover { color: var(--accent); }
+
+        .wrap { max-width: 860px; margin: 0 auto; padding: 40px 24px 80px; }
+
+        .card { background: #fff; border-radius: 10px; padding: 36px 40px; box-shadow: 0 4px 24px rgba(18,24,29,0.06); margin-bottom: 24px; }
+        .card h2 { font-family: var(--heading); font-size: 1.6rem; color: var(--dark); margin-bottom: 6px; }
+        .card p { font-size: 0.9rem; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
+        .card a { color: var(--accent); }
+        .divider { height: 1px; background: #e6e9ee; margin: 22px 0; }
+
+        .tabs { display: flex; gap: 4px; margin-bottom: 24px; border-bottom: 2px solid #e6e9ee; flex-wrap: wrap; }
+        .tab-btn {
+            padding: 10px 20px; border: none; background: none; cursor: pointer;
+            font-family: var(--body); font-size: 0.86rem; font-weight: 500;
+            color: var(--muted); border-bottom: 2px solid transparent; margin-bottom: -2px;
+            transition: all 0.2s;
+        }
+        .tab-btn:hover { color: var(--dark); }
+        .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; }
+
+        .field { margin-bottom: 14px; }
+        .field label { display: block; font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 5px; }
+        .field input, .field textarea {
+            width: 100%; padding: 11px 14px; border: 1.5px solid #ddd; border-radius: 5px;
+            font-family: var(--body); font-size: 0.9rem; color: var(--text);
+            background: #fff; transition: border-color 0.2s;
+        }
+        .field input:focus, .field textarea:focus { outline: none; border-color: var(--accent); }
+        .field input[type="password"] { letter-spacing: 2px; }
+        .field textarea { resize: vertical; min-height: 80px; }
+        .field-hint { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
+        .fields-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        @media(max-width: 520px) { .fields-row { grid-template-columns: 1fr; } }
+
+        .btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 12px 26px; border: none; border-radius: 4px; cursor: pointer;
+            font-family: var(--body); font-size: 12px; font-weight: 600;
+            letter-spacing: 1.5px; text-transform: uppercase; transition: all 0.2s;
+        }
+        .btn-gold  { background: var(--accent2); color: #fff; }
+        .btn-gold:hover { background: #c08f3a; }
+        .btn-dark  { background: var(--dark); color: #fff; }
+        .btn-dark:hover { background: #253038; }
+        .lang-subtab-btn { background: var(--bg-alt); color: var(--dark); padding: 8px 16px; }
+        .lang-subtab-btn:hover { background: #e2e7ee; }
+        .lang-subtab-btn.active { background: var(--accent); color: #fff; }
+        .image-item { display: flex; align-items: center; gap: 18px; padding: 14px 0; border-bottom: 1px solid #eee; }
+        .image-item:last-child { border-bottom: none; }
+        .image-item img { width: 100px; height: 72px; object-fit: cover; border-radius: 6px; flex-shrink: 0; }
+        .image-item-body { flex: 1; min-width: 0; }
+        .image-item-cap { font-weight: 600; margin-bottom: 6px; }
+        .image-item-file { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+        .image-item-status { font-size: 0.82rem; margin-top: 6px; }
+        .image-item-status.ok  { color: var(--ok); }
+        .image-item-status.err { color: var(--err); }
+        .listing-item { display: flex; gap: 18px; padding: 18px 0; border-bottom: 1px solid #eee; }
+        .listing-item:last-child { border-bottom: none; }
+        .listing-item img { width: 100px; height: 72px; object-fit: cover; border-radius: 6px; flex-shrink: 0; background: #eee; }
+        .listing-item-body { flex: 1; min-width: 0; }
+        .listing-item-status { font-size: 0.82rem; margin-top: 6px; }
+        .listing-item-status.ok  { color: var(--ok); }
+        .listing-item-status.err { color: var(--err); }
+        .btn-del   { background: #fdf2f2; color: var(--err); border: 1px solid #f5c6c6; padding: 6px 14px; font-size: 11px; border-radius: 4px; cursor: pointer; font-family: var(--body); }
+        .btn-del:hover { background: var(--err); color: #fff; }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .hint { font-size: 0.82rem; color: var(--muted); margin-top: 16px; padding: 12px 16px; background: var(--bg-alt); border-radius: 6px; border-left: 3px solid var(--accent2); }
+        .hint strong { color: var(--dark); }
+
+        .empty-state { text-align: center; padding: 32px; color: var(--muted); font-size: 0.9rem; border: 1.5px dashed #ddd; border-radius: 8px; }
+
+        .status-msg { margin-top: 16px; padding: 12px 16px; border-radius: 6px; font-size: 0.88rem; display: none; }
+        .status-msg.ok      { background: #eafaf1; color: var(--ok);   border: 1px solid #a9dfbf; display: block; }
+        .status-msg.err     { background: #fdf2f2; color: var(--err);  border: 1px solid #f5c6c6; display: block; }
+        .status-msg.loading { background: var(--bg-alt); color: var(--muted); border: 1px solid #e6e9ee; display: block; }
+
+        .legal-toolbar { display:flex; gap:6px; margin-bottom:8px; flex-wrap:wrap; }
+        .btn-tb { padding:6px 12px; border:1px solid #ddd; background:#fff; border-radius:4px; cursor:pointer; font-family:var(--body); font-size:12px; color:var(--dark); }
+        .btn-tb:hover { background:var(--bg-alt); border-color:var(--accent2); }
+        .legal-editor {
+            border:1.5px solid #ddd; border-radius:5px; padding:20px 24px; min-height:220px; max-height:480px;
+            overflow-y:auto; background:#fff; outline:none;
+            font-family:var(--body); font-size:0.92rem; line-height:1.75; color:var(--text);
+        }
+        .legal-editor:focus { border-color:var(--accent); }
+        .legal-editor h3 { font-family:var(--heading); font-size:1.2rem; color:var(--dark); margin:22px 0 10px; }
+        .legal-editor h3:first-child { margin-top:0; }
+        .legal-editor p { margin-bottom:12px; }
+        .legal-editor ul { margin:0 0 12px 22px; }
+        .legal-editor li { margin-bottom:6px; }
+        .legal-editor strong { font-weight:700; color:var(--dark); }
+        .legal-editor a { color:var(--accent); }
+    </style>
+</head>
+<body>
+
+<header>
+    <span class="hd-brand">INTERCORP</span>
+    <span class="hd-badge">Admin</span>
+    <a href="/" class="hd-back">← Vissza a weboldalra</a>
+</header>
+
+<div class="wrap">
+
+    <!-- AUTH -->
+    <div class="card" id="authSection">
+        <h2>Bejelentkezés</h2>
+        <p>Adja meg a kezelőfelület jelszavát a folytatáshoz.</p>
+        <div class="divider"></div>
+        <div class="field">
+            <label>Jelszó</label>
+            <input type="password" id="pwInput" placeholder="Jelszó" autocomplete="off">
+        </div>
+        <button class="btn btn-gold" id="authBtn" style="margin-top:8px">Belépés</button>
+        <div id="authStatus" class="status-msg"></div>
+        <div class="hint" style="margin-top:20px">
+            Ha elfelejtette a jelszót, keresse a weboldal fejlesztőjét.
+        </div>
+    </div>
+
+    <!-- MAIN (hidden until auth) -->
+    <div id="mainSection" style="display:none">
+
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="settings">⚙️ Beállítások</button>
+            <button class="tab-btn" data-tab="content">📝 Tartalom</button>
+            <button class="tab-btn" data-tab="images">🖼️ Képek</button>
+            <button class="tab-btn" data-tab="legal">📜 Jogi szövegek</button>
+        </div>
+
+        <!-- TAB: BEÁLLÍTÁSOK -->
+        <div class="tab-panel active" id="tab-settings">
+            <div class="card">
+                <h2>Elérhetőségi adatok</h2>
+                <p>Az itt megadott adatok a weboldal kapcsolat szekciójában és lábléceiben automatikusan megjelennek. Módosítás után kattintson a <strong>Mentés</strong> gombra.</p>
+
+                <div class="divider"></div>
+
+                <div class="field">
+                    <label>Kapcsolattartó neve / ügyfélszolgálat megnevezése</label>
+                    <input type="text" id="s-person" placeholder="pl. Intercorp ügyfélszolgálat">
+                </div>
+                <div class="fields-row">
+                    <div class="field">
+                        <label>Telefonszám (megjelenő)</label>
+                        <input type="text" id="s-phone1" placeholder="+36 30 000 0000">
+                        <p class="field-hint">Formátum: +36 XX XXX XXXX (szóközökkel)</p>
+                    </div>
+                    <div class="field">
+                        <label>E-mail cím</label>
+                        <input type="email" id="s-email" placeholder="info@intercorp.hu">
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Székhely / cím</label>
+                    <input type="text" id="s-address" placeholder="Debrecen">
+                </div>
+                <div class="fields-row">
+                    <div class="field">
+                        <label>Cégjegyzékszám</label>
+                        <input type="text" id="s-company-reg" placeholder="pl. 09-09-000000">
+                    </div>
+                    <div class="field">
+                        <label>Adószám</label>
+                        <input type="text" id="s-tax-number" placeholder="pl. 12345678-1-09">
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+                <button class="btn btn-gold" id="saveSettingsBtn">Mentés</button>
+                <div id="saveSettingsStatus" class="status-msg"></div>
+            </div>
+        </div>
+
+        <!-- TAB: TARTALOM -->
+        <div class="tab-panel" id="tab-content">
+            <div class="card">
+                <h2>Weboldal szövegei</h2>
+                <p>A weboldal "Kezdőlap", "Rólunk" és "Szolgáltatások" szekcióinak szövege, mind a 4 nyelven. Válaszd ki alul a szerkesztendő nyelvet, majd módosítás után kattints a <strong>Mentés</strong> gombra (ez egyszerre menti mind a 4 nyelvet).</p>
+
+                <div class="lang-subtabs" style="display:flex;gap:8px;margin:16px 0;flex-wrap:wrap">
+                    <button type="button" class="btn lang-subtab-btn active" data-lang="hu">🇭🇺 Magyar</button>
+                    <button type="button" class="btn lang-subtab-btn" data-lang="en">🇬🇧 English</button>
+                    <button type="button" class="btn lang-subtab-btn" data-lang="ko">🇰🇷 한국어</button>
+                    <button type="button" class="btn lang-subtab-btn" data-lang="zh">🇨🇳 中文</button>
+                </div>
+
+                <div class="divider"></div>
+
+                <h3 style="font-family:var(--heading);font-size:1.05rem;margin-bottom:12px">Kezdőlap (Hero)</h3>
+                <div class="field"><label>Cím (HTML engedélyezett, pl. &lt;em&gt;kiemelés&lt;/em&gt;)</label><input type="text" id="txt-hero-title"></div>
+                <div class="field"><label>Leírás</label><textarea id="txt-hero-desc"></textarea></div>
+
+                <div class="divider"></div>
+                <h3 style="font-family:var(--heading);font-size:1.05rem;margin-bottom:12px">Rólunk</h3>
+                <div class="field"><label>Cím</label><input type="text" id="txt-about-title"></div>
+                <div class="field"><label>1. bekezdés</label><textarea id="txt-about-p1"></textarea></div>
+                <div class="field"><label>2. bekezdés</label><textarea id="txt-about-p2"></textarea></div>
+
+                <div class="divider"></div>
+                <h3 style="font-family:var(--heading);font-size:1.05rem;margin-bottom:12px">Szolgáltatások (4 kártya)</h3>
+                <div class="fields-row">
+                    <div class="field"><label>1. kártya címe</label><input type="text" id="txt-svc1-title"></div>
+                    <div class="field"><label>1. kártya leírása</label><input type="text" id="txt-svc1-desc"></div>
+                </div>
+                <div class="fields-row">
+                    <div class="field"><label>2. kártya címe</label><input type="text" id="txt-svc2-title"></div>
+                    <div class="field"><label>2. kártya leírása</label><input type="text" id="txt-svc2-desc"></div>
+                </div>
+                <div class="fields-row">
+                    <div class="field"><label>3. kártya címe</label><input type="text" id="txt-svc3-title"></div>
+                    <div class="field"><label>3. kártya leírása</label><input type="text" id="txt-svc3-desc"></div>
+                </div>
+                <div class="fields-row">
+                    <div class="field"><label>4. kártya címe</label><input type="text" id="txt-svc4-title"></div>
+                    <div class="field"><label>4. kártya leírása</label><input type="text" id="txt-svc4-desc"></div>
+                </div>
+
+                <div class="divider"></div>
+                <button class="btn btn-gold" id="saveTextsBtn">Mentés</button>
+                <div id="saveTextsStatus" class="status-msg"></div>
+            </div>
+        </div>
+
+        <!-- TAB: KÉPEK -->
+        <div class="tab-panel" id="tab-images">
+            <div class="card">
+                <h2>Fő képek cseréje</h2>
+                <p>A képek automatikusan kicsinyítve és tömörítve kerülnek fel (max. 1920px, jó minőség). Csere után a weboldal ~2 percen belül frissül — a fájlnév nem változik, csak a kép tartalma.</p>
+
+                <div class="divider"></div>
+
+                <div id="imageList" class="image-list"></div>
+                <div id="imagesStatus" class="status-msg"></div>
+            </div>
+        </div>
+
+        <!-- TAB: JOGI SZÖVEGEK -->
+        <div class="tab-panel" id="tab-legal">
+            <div class="card">
+                <h2>Együttműködési feltételek, Adatkezelési tájékoztató, Impresszum</h2>
+                <p>Ezeknek a dokumentumoknak a teljes szövege itt szerkeszthető — jelöld ki az átírandó/formázandó szöveget, majd használd a szerkesztő feletti gombokat. A doboz kb. úgy fog kinézni, ahogy a weboldalon is megjelenik.</p>
+
+                <div class="field">
+                    <label>Általános Együttműködési Feltételek</label>
+                    <div class="legal-toolbar">
+                        <button type="button" class="btn-tb" data-cmd="bold" title="Félkövér"><b>B</b></button>
+                        <button type="button" class="btn-tb" data-cmd="formatBlock" data-val="H3" title="Alcím">Alcím</button>
+                        <button type="button" class="btn-tb" data-cmd="formatBlock" data-val="P" title="Normál szöveg">Bekezdés</button>
+                        <button type="button" class="btn-tb" data-cmd="insertUnorderedList" title="Felsorolás">• Lista</button>
+                        <button type="button" class="btn-tb" data-cmd="removeFormat" title="Formázás törlése">Tisztítás</button>
+                    </div>
+                    <div class="legal-editor" id="legal-aszf-input" contenteditable="true"></div>
+                </div>
+                <div class="field">
+                    <label>Adatkezelési tájékoztató</label>
+                    <div class="legal-toolbar">
+                        <button type="button" class="btn-tb" data-cmd="bold" title="Félkövér"><b>B</b></button>
+                        <button type="button" class="btn-tb" data-cmd="formatBlock" data-val="H3" title="Alcím">Alcím</button>
+                        <button type="button" class="btn-tb" data-cmd="formatBlock" data-val="P" title="Normál szöveg">Bekezdés</button>
+                        <button type="button" class="btn-tb" data-cmd="insertUnorderedList" title="Felsorolás">• Lista</button>
+                        <button type="button" class="btn-tb" data-cmd="removeFormat" title="Formázás törlése">Tisztítás</button>
+                    </div>
+                    <div class="legal-editor" id="legal-gdpr-input" contenteditable="true"></div>
+                </div>
+                <div class="field">
+                    <label>Impresszum</label>
+                    <div class="legal-toolbar">
+                        <button type="button" class="btn-tb" data-cmd="bold" title="Félkövér"><b>B</b></button>
+                        <button type="button" class="btn-tb" data-cmd="formatBlock" data-val="H3" title="Alcím">Alcím</button>
+                        <button type="button" class="btn-tb" data-cmd="formatBlock" data-val="P" title="Normál szöveg">Bekezdés</button>
+                        <button type="button" class="btn-tb" data-cmd="insertUnorderedList" title="Felsorolás">• Lista</button>
+                        <button type="button" class="btn-tb" data-cmd="removeFormat" title="Formázás törlése">Tisztítás</button>
+                    </div>
+                    <div class="legal-editor" id="legal-impresszum-input" contenteditable="true"></div>
+                </div>
+
+                <div class="divider"></div>
+                <button class="btn btn-gold" id="saveLegalBtn">Mentés</button>
+                <div id="saveLegalStatus" class="status-msg"></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    const PROXY = '/.netlify/functions/admin-proxy';
+
+    let password = '';
+    let contentSha = '';
+    let textsSha   = '';
+
+    // ── TABS ──────────────────────────────────────────────
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+        });
+    });
+
+    // ── AUTH ──────────────────────────────────────────────
+    document.getElementById('authBtn').addEventListener('click', async () => {
+        const pw = document.getElementById('pwInput').value.trim();
+        if (!pw) return;
+        const btn    = document.getElementById('authBtn');
+        const status = document.getElementById('authStatus');
+        btn.disabled = true; btn.textContent = 'Belépés...';
+        status.className = 'status-msg loading'; status.textContent = 'Ellenőrzés...';
+        try {
+            await Promise.all([loadSettings(pw), loadTexts(pw), loadLegal(pw)]);
+            password = pw;
+            document.getElementById('authSection').style.display = 'none';
+            document.getElementById('mainSection').style.display = 'block';
+        } catch (e) {
+            status.className = 'status-msg err';
+            status.textContent = 'Hiba: ' + (e.message || 'Hibás jelszó.');
+            btn.disabled = false; btn.textContent = 'Belépés';
+        }
+    });
+    document.getElementById('pwInput').addEventListener('keydown', e => {
+        if (e.key === 'Enter') document.getElementById('authBtn').click();
+    });
+
+    // ── GITHUB HELPERS (via server-side proxy, GITHUB_PAT never reaches the browser) ──
+    async function ghGet(file, pw) {
+        const resp = await fetch(PROXY, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ password: pw || password, action: 'get', file })
+        });
+        const data = await resp.json();
+        if (!resp.ok) throw new Error(data.error || `Hiba: ${resp.status}`);
+        return data;
+    }
+
+    async function ghPut(file, sha, content, message, isBase64 = false) {
+        const resp = await fetch(PROXY, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ password, action: 'put', file, sha, content, message, isBase64 })
+        });
+        const data = await resp.json();
+        if (!resp.ok) throw new Error(data.error || `Hiba: ${resp.status}`);
+        return { content: { sha: data.sha } };
+    }
+
+    function decodeGH(raw) {
+        return JSON.parse(decodeURIComponent(escape(atob(raw.replace(/\n/g, '')))));
+    }
+
+    function escapeHtml(s) {
+        return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    }
+
+    async function saveWithStatus(btnId, statusId, saveFn) {
+        const btn    = document.getElementById(btnId);
+        const status = document.getElementById(statusId);
+        btn.disabled = true; btn.textContent = 'Mentés...';
+        status.className = 'status-msg loading'; status.textContent = 'Mentés folyamatban...';
+        try {
+            await saveFn();
+            status.className = 'status-msg ok';
+            status.textContent = '✓ Sikeresen mentve! A weboldal ~2 percen belül frissül.';
+        } catch (e) {
+            status.className = 'status-msg err';
+            status.textContent = '✗ Hiba: ' + (e.message || 'Ismeretlen hiba.');
+        } finally {
+            btn.disabled = false; btn.textContent = 'Mentés';
+        }
+    }
+
+    // ── SETTINGS (content.json) ────────────────────────────
+    async function loadSettings(pat) {
+        const data = await ghGet('content.json', pat);
+        contentSha = data.sha;
+        const c    = decodeGH(data.content);
+        document.getElementById('s-person').value      = c.person      || '';
+        document.getElementById('s-phone1').value      = c.phone1      || '';
+        document.getElementById('s-email').value        = c.email       || '';
+        document.getElementById('s-address').value      = c.address     || '';
+        document.getElementById('s-company-reg').value  = c.company_reg || '';
+        document.getElementById('s-tax-number').value   = c.tax_number  || '';
+    }
+
+    document.getElementById('saveSettingsBtn').addEventListener('click', () => {
+        saveWithStatus('saveSettingsBtn', 'saveSettingsStatus', async () => {
+            const phone1 = document.getElementById('s-phone1').value.trim();
+            const email  = document.getElementById('s-email').value.trim();
+            const newContent = {
+                person:      document.getElementById('s-person').value.trim(),
+                phone1,
+                phone1_href: 'tel:' + phone1.replace(/\s/g, ''),
+                email,
+                email_href:  'mailto:' + email,
+                address:     document.getElementById('s-address').value.trim(),
+                company_reg: document.getElementById('s-company-reg').value.trim(),
+                tax_number:  document.getElementById('s-tax-number').value.trim(),
+            };
+            const result = await ghPut('content.json', contentSha, newContent, 'Admin: elérhetőségi adatok frissítése');
+            contentSha = result.content.sha;
+        });
+    });
+
+    // ── TARTALOM (texts.json) ────────────────────────────
+    const TEXT_KEYS = [
+        'hero.title', 'hero.desc',
+        'about.title', 'about.p1', 'about.p2',
+        'svc1.title', 'svc1.desc', 'svc2.title', 'svc2.desc',
+        'svc3.title', 'svc3.desc', 'svc4.title', 'svc4.desc',
+    ];
+    const textFieldId = (key) => 'txt-' + key.replace('.', '-');
+    const TEXT_LANGS = ['hu', 'en', 'ko', 'zh'];
+    let textsAll = { hu: {}, en: {}, ko: {}, zh: {} };
+    let currentTextLang = 'hu';
+
+    function populateTextFields(lang) {
+        const t = textsAll[lang] || {};
+        TEXT_KEYS.forEach(key => {
+            const el = document.getElementById(textFieldId(key));
+            if (el) el.value = t[key] || '';
+        });
+    }
+
+    function captureTextFields(lang) {
+        const t = {};
+        TEXT_KEYS.forEach(key => {
+            const el = document.getElementById(textFieldId(key));
+            t[key] = el.value.trim();
+        });
+        textsAll[lang] = t;
+    }
+
+    document.querySelectorAll('[data-lang]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            captureTextFields(currentTextLang);
+            currentTextLang = btn.dataset.lang;
+            populateTextFields(currentTextLang);
+            document.querySelectorAll('[data-lang]').forEach(b => b.classList.toggle('active', b === btn));
+        });
+    });
+
+    async function loadTexts(pat) {
+        const data = await ghGet('texts.json', pat);
+        textsSha = data.sha;
+        const decoded = decodeGH(data.content);
+        TEXT_LANGS.forEach(lang => { textsAll[lang] = decoded[lang] || {}; });
+        populateTextFields(currentTextLang);
+    }
+
+    document.getElementById('saveTextsBtn').addEventListener('click', () => {
+        saveWithStatus('saveTextsBtn', 'saveTextsStatus', async () => {
+            captureTextFields(currentTextLang);
+            const result = await ghPut('texts.json', textsSha, textsAll, 'Admin: tartalom frissítése');
+            textsSha = result.content.sha;
+        });
+    });
+
+    // ── KÉPEK (fő képek cseréje) ─────────────────────
+    const SITE_IMAGES = [
+        { file: 'kepek/hero.jpg', caption: 'Kezdőlap háttérkép' },
+        { file: 'kepek/about.jpg', caption: 'Rólunk szekció képe' },
+    ];
+    const MAX_IMG_DIM = 1920;
+    const JPEG_QUALITY = 0.82;
+
+    function renderImageList() {
+        const el = document.getElementById('imageList');
+        el.innerHTML = SITE_IMAGES.map((img, i) => `
+            <div class="image-item">
+                <img src="${img.file}?v=${Date.now()}" alt="${img.caption}">
+                <div class="image-item-body">
+                    <div class="image-item-cap">${img.caption}</div>
+                    <div class="image-item-file">${img.file}</div>
+                    <input type="file" accept="image/*" data-i="${i}" class="image-file-input">
+                    <div class="image-item-status" data-i="${i}"></div>
+                </div>
+            </div>
+        `).join('');
+        el.querySelectorAll('.image-file-input').forEach(inp => {
+            inp.addEventListener('change', () => handleImageUpload(parseInt(inp.dataset.i), inp));
+        });
+    }
+
+    async function compressImageToBase64(file) {
+        const bitmap = await createImageBitmap(file, { imageOrientation: 'from-image' });
+        let { width, height } = bitmap;
+        if (width > MAX_IMG_DIM || height > MAX_IMG_DIM) {
+            const scale = MAX_IMG_DIM / Math.max(width, height);
+            width = Math.round(width * scale);
+            height = Math.round(height * scale);
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = width; canvas.height = height;
+        canvas.getContext('2d').drawImage(bitmap, 0, 0, width, height);
+        const dataUrl = canvas.toDataURL('image/jpeg', JPEG_QUALITY);
+        return dataUrl.split(',')[1];
+    }
+
+    async function handleImageUpload(i, inputEl) {
+        const file = inputEl.files[0];
+        if (!file) return;
+        const img = SITE_IMAGES[i];
+        const status = document.querySelector(`.image-item-status[data-i="${i}"]`);
+        status.className = 'image-item-status'; status.textContent = 'Feldolgozás...';
+        inputEl.disabled = true;
+        try {
+            const base64 = await compressImageToBase64(file);
+            const current = await ghGet(img.file);
+            await ghPut(img.file, current.sha, base64, `Admin: ${img.file} csere`, true);
+            status.className = 'image-item-status ok';
+            status.textContent = '✓ Sikeresen mentve! A weboldal ~2 percen belül frissül.';
+        } catch (e) {
+            status.className = 'image-item-status err';
+            status.textContent = '✗ Hiba: ' + (e.message || 'Ismeretlen hiba.');
+        } finally {
+            inputEl.disabled = false;
+            inputEl.value = '';
+        }
+    }
+
+    renderImageList();
+
+    // ── JOGI SZÖVEGEK (legal.json) — WYSIWYG szerkesztő ────
+    let legalSha = '';
+
+    async function loadLegal(pat) {
+        const data = await ghGet('legal.json', pat);
+        legalSha = data.sha;
+        const decoded = decodeGH(data.content);
+        document.getElementById('legal-aszf-input').innerHTML       = decoded.aszf       || '';
+        document.getElementById('legal-gdpr-input').innerHTML       = decoded.gdpr       || '';
+        document.getElementById('legal-impresszum-input').innerHTML = decoded.impresszum || '';
+    }
+
+    try { document.execCommand('defaultParagraphSeparator', false, 'p'); } catch {}
+
+    document.querySelectorAll('.btn-tb').forEach(btn => {
+        btn.addEventListener('mousedown', e => e.preventDefault());
+        btn.addEventListener('click', () => {
+            document.execCommand(btn.dataset.cmd, false, btn.dataset.val || null);
+        });
+    });
+
+    function normalizeLegalHtml(html) {
+        const div = document.createElement('div');
+        div.innerHTML = html;
+        div.querySelectorAll('b').forEach(el => { const s = document.createElement('strong'); s.innerHTML = el.innerHTML; el.replaceWith(s); });
+        div.querySelectorAll('i').forEach(el => { const s = document.createElement('em'); s.innerHTML = el.innerHTML; el.replaceWith(s); });
+        div.querySelectorAll('[style]').forEach(el => el.removeAttribute('style'));
+        return div.innerHTML;
+    }
+
+    document.getElementById('saveLegalBtn').addEventListener('click', () => {
+        saveWithStatus('saveLegalBtn', 'saveLegalStatus', async () => {
+            const newLegal = {
+                aszf:       normalizeLegalHtml(document.getElementById('legal-aszf-input').innerHTML),
+                gdpr:       normalizeLegalHtml(document.getElementById('legal-gdpr-input').innerHTML),
+                impresszum: normalizeLegalHtml(document.getElementById('legal-impresszum-input').innerHTML),
+            };
+            const result = await ghPut('legal.json', legalSha, newLegal, 'Admin: jogi szövegek frissítése');
+            legalSha = result.content.sha;
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+{
+  "hu": {
+    "hero.title": "Vállalati lakhatás <em>Debrecenben és környékén</em>",
+    "hero.desc": "Teljes körű, minőségi szálláskiadás és ingatlanüzemeltetés vállalatvezetőktől a kiküldött munkavállalói csapatokig, a debreceni nagyipari beruházások közelében.",
+    "about.title": "Otthonok. Lehetőségek. Bizalom.",
+    "about.p1": "Az Intercorp Kft. Debrecenben és környékén biztosít minőségi, teljes körűen felszerelt lakhatást a nagyipari beruházásokhoz kapcsolódó vállalatok munkavállalói számára – a vezetőktől a kiküldött szakemberekig –, elsősorban koreai és kínai, de hazai partnereink részére is.",
+    "about.p2": "Célunk, hogy az áttelepülés a lehető legzökkenőmentesebb legyen: a megfelelő ingatlan kiválasztásától a napi ügyintézésig mindenben partnerei vagyunk.",
+    "svc1.title": "Vezetői lakások",
+    "svc1.desc": "Prémium kategóriás, teljesen berendezett apartmanok egyéni felsővezetők számára, azonnal beköltözhető állapotban.",
+    "svc2.title": "Céges csoportos elszállásolás",
+    "svc2.desc": "Rugalmasan bővíthető szálláskapacitás nagyobb létszámú kiküldött csapatok, mérnökök és szakértők számára.",
+    "svc3.title": "Teljes körű ingatlanüzemeltetés",
+    "svc3.desc": "Takarítástól a karbantartásig, a rezsi ügyintézésétől a kapcsolattartásig – mindent levesszük a vállalat válláról.",
+    "svc4.title": "Relokációs segítség",
+    "svc4.desc": "Segítünk a beköltözés, a hatósági ügyintézés és a mindennapi élet megszervezésében is."
+  },
+  "en": {
+    "hero.title": "Corporate Housing in <em>Debrecen and Its Surroundings</em>",
+    "hero.desc": "Full-service, quality accommodation and property management from company executives to delegated worker teams, close to Debrecen's major industrial investments.",
+    "about.title": "Homes. Opportunities. Trust.",
+    "about.p1": "Intercorp Kft. provides quality, fully furnished housing in Debrecen and its surrounding area for employees of companies connected to the region's major industrial investments — from executives to delegated specialists — primarily for our Korean and Chinese partners, but also for domestic companies.",
+    "about.p2": "Our goal is to make relocation as seamless as possible: from selecting the right property to day-to-day administration, we're your partner every step of the way.",
+    "svc1.title": "Executive Apartments",
+    "svc1.desc": "Premium, fully furnished apartments for individual senior executives, ready to move in immediately.",
+    "svc2.title": "Corporate Group Housing",
+    "svc2.desc": "Flexibly scalable accommodation capacity for larger delegations, engineers and expert teams.",
+    "svc3.title": "Full Property Management",
+    "svc3.desc": "From cleaning to maintenance, from utility administration to communication — we take everything off the company's hands.",
+    "svc4.title": "Relocation Assistance",
+    "svc4.desc": "We help with moving in, official administration and everyday life."
+  },
+  "ko": {
+    "hero.title": "데브레첸 및 인근 지역의 <em>기업 주거 솔루션</em>",
+    "hero.desc": "데브레첸의 대규모 산업 투자 인근에서 기업 임원부터 파견 근로자 팀까지, 전 직급을 위한 풀서비스 숙박 및 부동산 관리 서비스를 제공합니다.",
+    "about.title": "주거. 기회. 신뢰.",
+    "about.p1": "Intercorp Kft.는 데브레첸 및 인근 지역에서 대규모 산업 투자와 연계된 기업의 임직원을 위한 고품질 완비형 주거를 제공합니다 – 임원부터 파견 전문 인력까지 – 주로 한국 및 중국 파트너사를 위해, 그리고 국내 기업에도 제공됩니다.",
+    "about.p2": "저희의 목표는 이주 과정을 최대한 원활하게 만드는 것입니다. 적합한 부동산 선정부터 일상적인 행정 업무까지, 모든 과정을 함께합니다.",
+    "svc1.title": "임원 아파트",
+    "svc1.desc": "개별 고위 임원을 위한 프리미엄 완비형 아파트로, 즉시 입주가 가능합니다.",
+    "svc2.title": "기업 단체 숙소",
+    "svc2.desc": "대규모 파견팀, 엔지니어 및 전문 인력을 위해 유연하게 확장 가능한 숙박 공간입니다.",
+    "svc3.title": "종합 부동산 관리",
+    "svc3.desc": "청소부터 유지보수, 공과금 처리부터 응대까지 — 기업의 부담을 모두 덜어드립니다.",
+    "svc4.title": "이주 지원 서비스",
+    "svc4.desc": "입주, 행정 절차, 일상생활 정착까지 도와드립니다."
+  },
+  "zh": {
+    "hero.title": "德布勒森及周边地区的<em>企业住房</em>",
+    "hero.desc": "在德布勒森重大工业投资项目附近，为从企业高管到外派员工团队的各层级人员提供全方位的住房与物业管理服务。",
+    "about.title": "家园。机遇。信任。",
+    "about.p1": "Intercorp Kft. 在德布勒森及周边地区为与重大工业投资相关的企业员工提供高品质、全套设施的住房——从高管到外派专业人员——主要面向我们的韩国和中国合作伙伴，同时也服务本地企业。",
+    "about.p2": "我们的目标是让搬迁过程尽可能顺利：从挑选合适的房源到日常事务处理，我们全程为您提供支持。",
+    "svc1.title": "高管公寓",
+    "svc1.desc": "为个人高管提供的高品质全套设施公寓，可即时入住。",
+    "svc2.title": "企业团体住房",
+    "svc2.desc": "可灵活扩展的住宿方案，适用于大规模外派团队、工程师及专业人员。",
+    "svc3.title": "全方位物业管理",
+    "svc3.desc": "从清洁到维护，从水电费缴纳到日常沟通——我们为企业分担一切。",
+    "svc4.title": "搬迁协助服务",
+    "svc4.desc": "我们协助办理入住、行政手续及日常生活安排。"
+  }
+}
