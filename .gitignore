@@ -1,0 +1,14 @@
+# Env files — never commit
+.env
+.env.local
+.env.*.local
+
+### IntelliJ IDEA ###
+.idea/
+out/
+
+### VS Code ###
+.vscode/
+
+### Mac OS ###
+.DS_Store
