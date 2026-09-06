@@ -89,7 +89,8 @@
         }
         #nav.scrolled { background: rgba(18,24,29,0.96); box-shadow: var(--shadow); height: 68px; }
         .nav-in { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; width: 100%; display: flex; align-items: center; justify-content: space-between; }
-        .logo { text-decoration: none; line-height: 1.15; }
+        .logo { text-decoration: none; line-height: 1.15; display: flex; align-items: center; gap: 12px; }
+        .logo img { height: 46px; width: auto; display: none; }
         .logo-name { display: block; font-family: var(--heading); font-size: 1.3rem; font-weight: 700; color: #fff; letter-spacing: 0.5px; }
         .logo-sub { display: block; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent2); }
         .nav-links { display: flex; align-items: center; gap: 30px; list-style: none; }
@@ -279,6 +280,8 @@
         @media(max-width: 860px) {
             :root { --nav-h: 64px; }
             .sec { padding: 64px 0; }
+            .logo img { height: 34px; }
+            .logo-name { font-size: 1.08rem; }
             .nav-links { display: none; }
             .lang-sw { display: none; }
             .hamburger { display: flex; }
@@ -305,8 +308,11 @@
 <nav id="nav">
     <div class="nav-in">
         <a href="#hero" class="logo">
-            <span class="logo-name">INTERPROP</span>
-            <span class="logo-sub">Debrecen · Corporate Housing</span>
+            <img src="kepek/logo.svg" alt="Interprop" id="logoImg">
+            <span class="logo-txt">
+                <span class="logo-name">INTERPROP</span>
+                <span class="logo-sub">Debrecen · Corporate Housing</span>
+            </span>
         </a>
         <ul class="nav-links">
             <li><a href="#rolunk"       data-i18n="nav.about">Rólunk</a></li>
@@ -835,6 +841,17 @@
         });
         document.documentElement.lang = lang;
     }
+
+    // Logo image: reveal only once it has actually loaded (falls back to text logo otherwise)
+    (function () {
+        const logoImg = document.getElementById('logoImg');
+        if (!logoImg) return;
+        const show = () => { logoImg.style.display = 'block'; };
+        const hide = () => { logoImg.style.display = 'none'; };
+        if (logoImg.complete && logoImg.naturalWidth > 0) show();
+        logoImg.addEventListener('load', show);
+        logoImg.addEventListener('error', hide);
+    })();
 
     // Navbar scroll
     const nav = document.getElementById('nav');
