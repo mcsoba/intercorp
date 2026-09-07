@@ -197,6 +197,32 @@
                 <button class="btn btn-gold" id="saveSettingsBtn">Mentés</button>
                 <div id="saveSettingsStatus" class="status-msg"></div>
             </div>
+
+            <div class="card">
+                <h2>Elszállásolt vendégek száma</h2>
+                <p>A weboldal főoldalán megjelenő "Elszállásolt vendég" statisztika. Új csoport érkezésekor add hozzá a létszámot, vagy írd át közvetlenül a végösszeget, majd mentsd el.</p>
+
+                <div class="divider"></div>
+
+                <div class="fields-row">
+                    <div class="field">
+                        <label>Jelenlegi összlétszám</label>
+                        <input type="number" id="s-guest-count" min="0" step="1">
+                    </div>
+                    <div class="field">
+                        <label>Új érkezés hozzáadása (fő)</label>
+                        <div style="display:flex;gap:8px">
+                            <input type="number" id="s-guest-add" min="1" step="1" placeholder="pl. 8">
+                            <button type="button" class="btn btn-dark" id="addGuestsBtn" style="white-space:nowrap">+ Hozzáad</button>
+                        </div>
+                        <p class="field-hint">Hozzáadja az összlétszámhoz, de csak a Mentés gombra kattintva ír a szerverre.</p>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+                <button class="btn btn-gold" id="saveGuestCountBtn">Mentés</button>
+                <div id="saveGuestCountStatus" class="status-msg"></div>
+            </div>
         </div>
 
         <!-- TAB: TARTALOM -->
@@ -410,23 +436,44 @@
         document.getElementById('s-address').value      = c.address     || '';
         document.getElementById('s-company-reg').value  = c.company_reg || '';
         document.getElementById('s-tax-number').value   = c.tax_number  || '';
+        document.getElementById('s-guest-count').value  = c.guest_count || 0;
+    }
+
+    function buildContentPayload() {
+        const phone1 = document.getElementById('s-phone1').value.trim();
+        const email  = document.getElementById('s-email').value.trim();
+        return {
+            person:      document.getElementById('s-person').value.trim(),
+            phone1,
+            phone1_href: 'tel:' + phone1.replace(/\s/g, ''),
+            email,
+            email_href:  'mailto:' + email,
+            address:     document.getElementById('s-address').value.trim(),
+            company_reg: document.getElementById('s-company-reg').value.trim(),
+            tax_number:  document.getElementById('s-tax-number').value.trim(),
+            guest_count: parseInt(document.getElementById('s-guest-count').value, 10) || 0,
+        };
     }
 
     document.getElementById('saveSettingsBtn').addEventListener('click', () => {
         saveWithStatus('saveSettingsBtn', 'saveSettingsStatus', async () => {
-            const phone1 = document.getElementById('s-phone1').value.trim();
-            const email  = document.getElementById('s-email').value.trim();
-            const newContent = {
-                person:      document.getElementById('s-person').value.trim(),
-                phone1,
-                phone1_href: 'tel:' + phone1.replace(/\s/g, ''),
-                email,
-                email_href:  'mailto:' + email,
-                address:     document.getElementById('s-address').value.trim(),
-                company_reg: document.getElementById('s-company-reg').value.trim(),
-                tax_number:  document.getElementById('s-tax-number').value.trim(),
-            };
-            const result = await ghPut('content.json', contentSha, newContent, 'Admin: elérhetőségi adatok frissítése');
+            const result = await ghPut('content.json', contentSha, buildContentPayload(), 'Admin: elérhetőségi adatok frissítése');
+            contentSha = result.content.sha;
+        });
+    });
+
+    document.getElementById('addGuestsBtn').addEventListener('click', () => {
+        const addInput = document.getElementById('s-guest-add');
+        const add = parseInt(addInput.value, 10);
+        if (!add || add < 1) return;
+        const countInput = document.getElementById('s-guest-count');
+        countInput.value = (parseInt(countInput.value, 10) || 0) + add;
+        addInput.value = '';
+    });
+
+    document.getElementById('saveGuestCountBtn').addEventListener('click', () => {
+        saveWithStatus('saveGuestCountBtn', 'saveGuestCountStatus', async () => {
+            const result = await ghPut('content.json', contentSha, buildContentPayload(), 'Admin: elszállásolt vendégek számának frissítése');
             contentSha = result.content.sha;
         });
     });
