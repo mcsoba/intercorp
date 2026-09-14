@@ -1,11 +1,11 @@
 {
   "guest_count": 1200,
   "person": "Interprop ügyfélszolgálat",
-  "phone1": "+36 30 000 0000",
-  "phone1_href": "tel:+36300000000",
-  "email": "info@interprop.hu",
-  "email_href": "mailto:info@interprop.hu",
+  "phone1": "+36 30 315 3458",
+  "phone1_href": "tel:+36303153458",
+  "email": "inter.prop.kft@gmail.com",
+  "email_href": "mailto:inter.prop.kft@gmail.com",
   "address": "Debrecen",
-  "company_reg": "[KITÖLTENDŐ]",
-  "tax_number": "[KITÖLTENDŐ]"
+  "company_reg": "09 09 035251",
+  "tax_number": "32310896-2-09"
 }
