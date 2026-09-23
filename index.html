@@ -17,7 +17,7 @@
     <meta name="twitter:image" content="https://intercorp-debrecen.netlify.app/kepek/hero.jpg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;0,700;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -27,18 +27,20 @@
             --dark2:   #1B242C;
             --accent:  #2FB8A8;
             --accent2: #C9793D;
-            --bg:      #F7F8FA;
-            --bg-alt:  #EEF1F5;
-            --text:    #1D2630;
-            --muted:   #667085;
+            --bg:      #FFFFFF;
+            --bg-alt:  #F3F6F5;
+            --bg-tint: #E6F3F1;
+            --text:    #26312F;
+            --muted:   #66756F;
             --white:   #FFFFFF;
-            --heading: 'Fraunces', Georgia, serif;
+            --heading: 'Manrope', -apple-system, sans-serif;
             --body:    'Inter', -apple-system, sans-serif;
             --nav-h:   80px;
             --max-w:   1200px;
             --ease:    0.3s ease;
-            --shadow:  0 4px 24px rgba(18,24,29,0.08);
-            --shadow-lg: 0 12px 48px rgba(18,24,29,0.16);
+            --radius:  20px;
+            --shadow:  0 4px 24px rgba(18,24,29,0.05);
+            --shadow-lg: 0 20px 56px rgba(18,24,29,0.12);
         }
 
         html { scroll-behavior: smooth; }
@@ -47,34 +49,36 @@
         .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
 
         .label {
-            display: block;
-            font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase;
-            color: var(--accent); margin-bottom: 12px;
+            display: inline-flex; align-items: center; gap: 8px;
+            font-size: 12px; font-weight: 700; letter-spacing: 0.5px;
+            color: var(--accent); margin-bottom: 14px;
+            background: var(--bg-tint); padding: 6px 14px; border-radius: 999px;
         }
         .title {
             font-family: var(--heading);
-            font-size: clamp(2rem, 4vw, 3.1rem); font-weight: 700; line-height: 1.18;
+            font-size: clamp(2rem, 3.8vw, 3rem); font-weight: 800; line-height: 1.14;
+            letter-spacing: -0.02em;
             color: var(--dark); margin-bottom: 18px;
         }
         .subtitle { font-size: 1rem; color: var(--muted); line-height: 1.85; max-width: 620px; }
-        .divider { width: 48px; height: 2px; background: var(--accent2); margin: 4px 0 0; }
-        .divider.c { margin: 4px auto 0; }
+        .divider { display: none; }
         .sec-header { max-width: 720px; margin-bottom: 48px; }
         .sec-header.c { margin-left: auto; margin-right: auto; text-align: center; }
+        .sec-header.c .label { margin-left: auto; margin-right: auto; }
 
         .btn {
             display: inline-flex; align-items: center; gap: 9px;
-            padding: 14px 30px; font-family: var(--body); font-size: 12px;
-            font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+            padding: 15px 28px; font-family: var(--body); font-size: 13.5px;
+            font-weight: 600; letter-spacing: 0.1px;
             text-decoration: none; border: none; cursor: pointer;
-            transition: var(--ease); border-radius: 3px;
+            transition: var(--ease); border-radius: 999px;
         }
         .btn-gold  { background: var(--accent2); color: #fff; }
-        .btn-gold:hover  { background: #A5622E; transform: translateY(-2px); }
+        .btn-gold:hover  { background: #A5622E; transform: translateY(-2px); box-shadow: var(--shadow-lg); }
         .btn-dark  { background: var(--dark); color: #fff; }
-        .btn-dark:hover  { background: #253038; transform: translateY(-2px); }
-        .btn-ghost { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,0.65); }
-        .btn-ghost:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
+        .btn-dark:hover  { background: #2B3733; transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+        .btn-ghost { background: var(--white); color: var(--dark); border: 1.5px solid #E2E8E6; }
+        .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
 
         .sec { padding: 96px 0; }
         .sec-white { background: var(--bg); }
@@ -85,138 +89,146 @@
         #nav {
             position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
             height: var(--nav-h); display: flex; align-items: center;
-            background: transparent; transition: var(--ease);
+            background: rgba(255,255,255,0.9); backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(18,24,29,0.06);
+            transition: var(--ease);
         }
-        #nav.scrolled { background: rgba(18,24,29,0.96); box-shadow: var(--shadow); height: 68px; }
+        #nav.scrolled { background: rgba(255,255,255,0.98); box-shadow: var(--shadow); height: 68px; }
         .nav-in { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; width: 100%; display: flex; align-items: center; justify-content: space-between; }
         .logo { text-decoration: none; line-height: 1.15; display: flex; align-items: center; gap: 12px; }
-        .logo img { height: 46px; width: auto; display: none; }
-        .logo-name { display: block; font-family: var(--heading); font-size: 1.3rem; font-weight: 700; color: #fff; letter-spacing: 0.5px; }
-        .logo-sub { display: block; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent2); }
+        .logo img { height: 40px; width: auto; display: none; }
+        .logo-name { display: block; font-family: var(--heading); font-size: 1.2rem; font-weight: 800; color: var(--dark); letter-spacing: -0.01em; }
+        .logo-sub { display: block; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); }
         .nav-links { display: flex; align-items: center; gap: 30px; list-style: none; }
-        .nav-links a { color: rgba(255,255,255,0.88); text-decoration: none; font-size: 0.86rem; font-weight: 500; transition: var(--ease); }
-        .nav-links a:hover { color: var(--accent2); }
-        .nav-links .nav-cta { background: var(--accent2); color: #fff; padding: 10px 20px; border-radius: 3px; }
-        .nav-links .nav-cta:hover { background: #A5622E; color: #fff; }
+        .nav-links a { color: var(--text); text-decoration: none; font-size: 0.86rem; font-weight: 500; transition: var(--ease); }
+        .nav-links a:hover { color: var(--accent); }
+        .nav-links .nav-cta { background: var(--dark); color: #fff !important; padding: 11px 22px; border-radius: 999px; }
+        .nav-links .nav-cta:hover { background: var(--accent2); color: #fff !important; }
         .lang-sw { display: flex; align-items: center; gap: 8px; margin-left: 26px; }
         .lang-btn { background: none; border: none; cursor: pointer; padding: 2px; border-radius: 3px; opacity: 0.55; transition: var(--ease); line-height: 0; }
         .lang-btn img { width: 24px; height: 17px; object-fit: cover; border-radius: 2px; display: block; }
         .lang-btn:hover, .lang-btn.active { opacity: 1; }
         .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
-        .hamburger span { display: block; width: 24px; height: 2px; background: #fff; transition: var(--ease); }
+        .hamburger span { display: block; width: 24px; height: 2px; background: var(--dark); transition: var(--ease); }
         .mob-menu {
             display: none; position: fixed; top: var(--nav-h); left: 0; right: 0;
-            background: var(--dark); padding: 20px 24px 28px; z-index: 999;
-            border-top: 1px solid rgba(255,255,255,0.08);
+            background: var(--white); padding: 20px 24px 28px; z-index: 999;
+            border-top: 1px solid rgba(18,24,29,0.06); box-shadow: var(--shadow);
         }
         .mob-menu.open { display: block; }
         .mob-menu ul { list-style: none; display: flex; flex-direction: column; gap: 4px; }
-        .mob-menu a { display: block; padding: 12px 4px; color: rgba(255,255,255,0.88); text-decoration: none; font-size: 0.95rem; border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .mob-menu a { display: block; padding: 12px 4px; color: var(--text); text-decoration: none; font-size: 0.95rem; border-bottom: 1px solid rgba(18,24,29,0.06); }
         .mob-lang { display: flex; gap: 12px; margin-top: 16px; }
         .mob-lang .lang-btn { opacity: 0.7; }
         .mob-lang .lang-btn.active { opacity: 1; }
 
         /* ── HERO ── */
-        #hero { position: relative; min-height: 100vh; padding-top: var(--nav-h); display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; }
-        .hero-bg { position: absolute; inset: 0; background: url('kepek/hero.jpg') center/cover no-repeat; }
-        .hero-ov { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(18,24,29,0.80) 0%, rgba(18,24,29,0.72) 45%, rgba(18,24,29,0.92) 100%); }
-        .hero-c { position: relative; z-index: 2; text-align: center; max-width: 820px; padding: 0 24px 100px; }
+        #hero { position: relative; padding: calc(var(--nav-h) + 72px) 0 64px; overflow: hidden; background: var(--bg); }
+        .hero-blob {
+            position: absolute; top: -120px; right: -160px; width: 620px; height: 620px;
+            border-radius: 50%; background: radial-gradient(circle at 30% 30%, var(--bg-tint), transparent 70%);
+            z-index: 0;
+        }
+        .hero-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 56px; align-items: center; }
         .hero-badge {
             display: inline-flex; align-items: center; gap: 8px;
-            background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.22);
-            color: #fff; padding: 8px 18px; border-radius: 40px; font-size: 12px;
-            letter-spacing: 1px; margin-bottom: 26px; backdrop-filter: blur(4px);
+            background: var(--bg-tint); color: var(--dark);
+            padding: 8px 16px; border-radius: 999px; font-size: 12px; font-weight: 600;
+            letter-spacing: 0.2px; margin-bottom: 22px;
         }
-        .hero-badge i { color: var(--accent2); }
-        .hero-title { font-family: var(--heading); color: #fff; font-size: clamp(2.3rem, 5.4vw, 3.9rem); font-weight: 700; line-height: 1.18; margin-bottom: 22px; }
-        .hero-title em { color: var(--accent2); font-style: italic; }
-        .hero-desc { color: rgba(255,255,255,0.82); font-size: 1.08rem; line-height: 1.8; margin-bottom: 36px; }
-        .hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-        .hero-scroll {
-            position: absolute; bottom: 118px; left: 50%; transform: translateX(-50%); z-index: 2;
-            display: flex; flex-direction: column; align-items: center; gap: 6px;
-            color: rgba(255,255,255,0.6); font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
-            cursor: pointer; animation: bob 2.2s ease-in-out infinite;
+        .hero-badge i { color: var(--accent); }
+        .hero-title { font-family: var(--heading); color: var(--dark); font-size: clamp(2.1rem, 3.6vw, 3.3rem); font-weight: 800; line-height: 1.14; letter-spacing: -0.02em; margin-bottom: 20px; }
+        .hero-title em { color: var(--accent); font-style: normal; background: var(--bg-tint); padding: 0 6px; border-radius: 6px; }
+        .hero-desc { color: var(--muted); font-size: 1.06rem; line-height: 1.8; margin-bottom: 32px; max-width: 520px; }
+        .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 40px; }
+        .hero-stats { display: flex; gap: 32px; flex-wrap: wrap; }
+        .hero-stat { display: flex; flex-direction: column; }
+        .hero-stat-n { display: block; font-family: var(--heading); font-size: 1.5rem; font-weight: 800; color: var(--dark); }
+        .hero-stat-l { display: block; font-size: 12px; color: var(--muted); margin-top: 2px; }
+        .hero-scroll { display: none; }
+        .hero-media { position: relative; border-radius: 28px; overflow: hidden; box-shadow: var(--shadow-lg); aspect-ratio: 4/5; }
+        .hero-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .hero-media::after { content: ''; position: absolute; inset: 0; border-radius: 28px; box-shadow: inset 0 0 0 1px rgba(18,24,29,0.06); }
+        .hero-media-badge {
+            position: absolute; top: 20px; left: 20px; background: rgba(255,255,255,0.92); backdrop-filter: blur(6px);
+            padding: 10px 16px; border-radius: 999px; font-size: 12px; font-weight: 600; color: var(--dark);
+            display: flex; align-items: center; gap: 8px; box-shadow: var(--shadow);
         }
-        @keyframes bob { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(7px)} }
-        .hero-stats {
-            position: absolute; bottom: 0; left: 0; right: 0; z-index: 2;
-            display: grid; grid-template-columns: repeat(4,1fr);
-            background: rgba(255,255,255,0.06); border-top: 1px solid rgba(255,255,255,0.14); backdrop-filter: blur(6px);
-        }
-        .hero-stat { text-align: center; padding: 22px 12px; border-right: 1px solid rgba(255,255,255,0.14); }
-        .hero-stat:last-child { border-right: none; }
-        .hero-stat-n { display: block; font-family: var(--heading); font-size: 1.7rem; font-weight: 700; color: var(--accent2); }
-        .hero-stat-l { display: block; font-size: 10.5px; letter-spacing: 0.5px; color: rgba(255,255,255,0.72); margin-top: 4px; }
+        .hero-media-badge i { color: var(--accent); }
 
         /* ── ABOUT ── */
         .about-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 64px; align-items: center; }
-        .about-img { position: relative; border-radius: 8px; overflow: hidden; box-shadow: var(--shadow-lg); }
-        .about-img img { width: 100%; height: 460px; object-fit: cover; display: block; }
-        .about-tag { position: absolute; bottom: 24px; left: 24px; background: var(--white); padding: 16px 22px; border-radius: 6px; box-shadow: var(--shadow); }
-        .about-tag strong { display: block; font-family: var(--heading); font-size: 1.1rem; color: var(--dark); }
-        .about-tag span { font-size: 11px; color: var(--muted); letter-spacing: 0.5px; }
+        .about-img { position: relative; }
+        .about-img::before {
+            content: ''; position: absolute; top: -28px; left: -28px; width: 160px; height: 160px;
+            border-radius: 50%; background: var(--bg-tint); z-index: 0;
+        }
+        .about-img-in { position: relative; z-index: 1; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-lg); }
+        .about-img-in img { width: 100%; height: 420px; object-fit: cover; display: block; }
         .about-p { color: var(--muted); line-height: 1.9; margin-bottom: 18px; font-size: 0.98rem; }
+        .about-checks { list-style: none; display: flex; flex-direction: column; gap: 12px; margin: 22px 0 28px; }
+        .about-checks li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.92rem; color: var(--text); font-weight: 500; }
+        .about-checks i { color: var(--accent); margin-top: 3px; }
 
         /* ── SERVICES ── */
         .svc-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
-        .svc-card { background: var(--white); border-radius: 8px; padding: 36px 28px; box-shadow: var(--shadow); transition: var(--ease); }
+        .svc-card { background: var(--white); border-radius: var(--radius); padding: 36px 28px; box-shadow: var(--shadow); transition: var(--ease); border: 1px solid rgba(18,24,29,0.04); }
         .svc-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
-        .svc-icon { width: 54px; height: 54px; border-radius: 8px; background: var(--bg-alt); display: flex; align-items: center; justify-content: center; color: var(--accent); font-size: 1.35rem; margin-bottom: 20px; }
-        .svc-card h3 { font-family: var(--heading); font-size: 1.2rem; color: var(--dark); margin-bottom: 10px; }
+        .svc-icon { width: 52px; height: 52px; border-radius: 16px; background: var(--bg-tint); display: flex; align-items: center; justify-content: center; color: var(--accent); font-size: 1.3rem; margin-bottom: 20px; }
+        .svc-card h3 { font-family: var(--heading); font-weight: 700; font-size: 1.12rem; color: var(--dark); margin-bottom: 10px; }
         .svc-card p { color: var(--muted); font-size: 0.9rem; line-height: 1.75; }
 
         /* ── WHY US ── */
         .why-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 24px; }
-        .why-card { text-align: center; padding: 30px 20px; }
-        .why-icon { width: 60px; height: 60px; border-radius: 50%; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.18); display: flex; align-items: center; justify-content: center; color: var(--accent2); font-size: 1.4rem; margin: 0 auto 20px; }
-        .why-card h3 { font-family: var(--heading); font-size: 1.12rem; color: #fff; margin-bottom: 10px; }
-        .why-card p { color: rgba(255,255,255,0.68); font-size: 0.88rem; line-height: 1.75; }
+        .why-card { text-align: center; padding: 30px 20px; background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); }
+        .why-icon { width: 56px; height: 56px; border-radius: 16px; background: var(--bg-tint); display: flex; align-items: center; justify-content: center; color: var(--accent); font-size: 1.3rem; margin: 0 auto 20px; }
+        .why-card h3 { font-family: var(--heading); font-weight: 700; font-size: 1.06rem; color: var(--dark); margin-bottom: 10px; }
+        .why-card p { color: var(--muted); font-size: 0.88rem; line-height: 1.75; }
 
         /* ── LISTINGS ── */
         .list-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 28px; }
-        .list-card { background: var(--white); border-radius: 8px; overflow: hidden; box-shadow: var(--shadow); transition: var(--ease); }
+        .list-card { background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); transition: var(--ease); border: 1px solid rgba(18,24,29,0.04); }
         .list-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
         .list-img { position: relative; height: 220px; background: var(--bg-alt); }
         .list-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
-        .list-cap { position: absolute; top: 14px; right: 14px; background: var(--accent); color: #fff; font-size: 11px; font-weight: 600; letter-spacing: 0.5px; padding: 6px 12px; border-radius: 30px; }
+        .list-cap { position: absolute; top: 14px; right: 14px; background: var(--white); color: var(--dark); font-size: 11px; font-weight: 600; letter-spacing: 0.5px; padding: 6px 12px; border-radius: 999px; box-shadow: var(--shadow); }
         .list-body { padding: 24px 26px 28px; }
-        .list-area { font-size: 11.5px; color: var(--accent2); font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 8px; }
-        .list-name { font-family: var(--heading); font-size: 1.22rem; color: var(--dark); margin-bottom: 10px; }
+        .list-area { font-size: 11.5px; color: var(--accent2); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 8px; }
+        .list-name { font-family: var(--heading); font-weight: 700; font-size: 1.18rem; color: var(--dark); margin-bottom: 10px; }
         .list-desc { color: var(--muted); font-size: 0.88rem; line-height: 1.7; margin-bottom: 16px; min-height: 60px; }
         .list-amenities { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 20px; }
-        .list-amenity { background: var(--bg-alt); color: var(--dark); font-size: 11px; font-weight: 500; padding: 5px 11px; border-radius: 30px; white-space: nowrap; }
-        .list-cta { color: var(--accent); font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; background: none; border: none; cursor: pointer; font-family: var(--body); padding: 0; }
+        .list-amenity { background: var(--bg-tint); color: var(--dark); font-size: 11px; font-weight: 500; padding: 5px 11px; border-radius: 999px; white-space: nowrap; }
+        .list-cta { color: var(--accent); font-size: 12.5px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; background: none; border: none; cursor: pointer; font-family: var(--body); padding: 0; }
         .list-cta:hover { gap: 10px; }
         .list-viewall { text-align: center; margin-top: 44px; }
 
         /* ── PROCESS ── */
         .proc-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; position: relative; }
         .proc-item { position: relative; padding: 0 20px; text-align: center; }
-        .proc-num { width: 46px; height: 46px; border-radius: 50%; background: var(--accent); color: #fff; font-family: var(--heading); font-weight: 700; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; position: relative; z-index: 2; }
-        .proc-item::after { content: ''; position: absolute; top: 23px; left: 50%; width: 100%; height: 2px; background: #E2E6EC; z-index: 1; }
+        .proc-num { width: 44px; height: 44px; border-radius: 14px; background: var(--dark); color: #fff; font-family: var(--heading); font-weight: 800; font-size: 1.05rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; position: relative; z-index: 2; }
+        .proc-item::after { content: ''; position: absolute; top: 22px; left: 50%; width: 100%; height: 2px; background: #E2E8E6; z-index: 1; }
         .proc-item:last-child::after { display: none; }
-        .proc-item h3 { font-family: var(--heading); font-size: 1.08rem; color: var(--dark); margin-bottom: 8px; }
+        .proc-item h3 { font-family: var(--heading); font-weight: 700; font-size: 1.02rem; color: var(--dark); margin-bottom: 8px; }
         .proc-item p { color: var(--muted); font-size: 0.87rem; line-height: 1.7; }
 
         /* ── CONTACT ── */
         .ct-grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 56px; }
-        .ct-info-card { background: var(--white); border-radius: 8px; padding: 32px; box-shadow: var(--shadow); }
+        .ct-info-card { background: var(--white); border-radius: var(--radius); padding: 32px; box-shadow: var(--shadow); border: 1px solid rgba(18,24,29,0.04); }
         .ct-item { display: flex; align-items: flex-start; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--bg-alt); }
         .ct-item:last-child { border-bottom: none; }
-        .ct-icon { width: 40px; height: 40px; border-radius: 6px; background: var(--bg-alt); color: #A5622E; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .ct-icon { width: 40px; height: 40px; border-radius: 12px; background: var(--bg-tint); color: var(--accent); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
         .ct-txt strong { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 4px; }
         .ct-txt a, .ct-txt span.ct-val { color: var(--dark); text-decoration: none; font-weight: 500; font-size: 0.95rem; }
         .ct-txt a:hover { color: var(--accent); }
 
-        .ct-form { background: var(--white); border-radius: 8px; padding: 36px 40px; box-shadow: var(--shadow); }
-        .ct-form-title { font-family: var(--heading); font-size: 1.35rem; color: var(--dark); margin-bottom: 22px; }
+        .ct-form { background: var(--white); border-radius: var(--radius); padding: 36px 40px; box-shadow: var(--shadow); border: 1px solid rgba(18,24,29,0.04); }
+        .ct-form-title { font-family: var(--heading); font-weight: 700; font-size: 1.3rem; color: var(--dark); margin-bottom: 22px; }
         .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
         .fg { margin-bottom: 18px; }
         .fg label { display: block; font-size: 12px; font-weight: 600; color: var(--dark); margin-bottom: 7px; }
         .fg input, .fg select, .fg textarea {
-            width: 100%; padding: 12px 14px; border: 1.5px solid #DDE2E8; border-radius: 5px;
-            font-family: var(--body); font-size: 0.92rem; color: var(--text); background: var(--bg);
+            width: 100%; padding: 12px 14px; border: 1.5px solid #E2E8E6; border-radius: 12px;
+            font-family: var(--body); font-size: 0.92rem; color: var(--text); background: var(--bg-alt);
             transition: border-color var(--ease);
         }
         .fg input:focus, .fg select:focus, .fg textarea:focus { outline: none; border-color: var(--accent); background: #fff; }
@@ -230,32 +242,32 @@
         .btn-submit { width: 100%; justify-content: center; }
         .form-ok { display: none; text-align: center; padding: 40px 0; }
         .form-ok i { font-size: 2.6rem; color: var(--accent); margin-bottom: 16px; }
-        .form-ok h3 { font-family: var(--heading); font-size: 1.4rem; color: var(--dark); margin-bottom: 8px; }
+        .form-ok h3 { font-family: var(--heading); font-weight: 700; font-size: 1.35rem; color: var(--dark); margin-bottom: 8px; }
         .form-ok p { color: var(--muted); }
 
         /* ── FOOTER ── */
         footer { background: var(--dark); padding: 56px 0 32px; }
         .ft-in { text-align: center; }
-        .ft-name { font-family: var(--heading); font-size: 1.5rem; font-weight: 700; color: #fff; }
-        .ft-sub { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent2); margin-top: 4px; }
+        .ft-name { font-family: var(--heading); font-size: 1.4rem; font-weight: 800; color: #fff; }
+        .ft-sub { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); margin-top: 4px; }
         .ft-nav { list-style: none; display: flex; justify-content: center; gap: 26px; flex-wrap: wrap; margin: 28px 0; }
         .ft-nav a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.85rem; }
-        .ft-nav a:hover { color: var(--accent2); }
+        .ft-nav a:hover { color: var(--accent); }
         .ft-line { height: 1px; background: rgba(255,255,255,0.1); margin: 0 auto 22px; max-width: 480px; }
         .ft-copy { font-size: 0.82rem; color: rgba(255,255,255,0.55); text-align: center; }
         .ft-legal { font-size: 11px; margin-top: 10px; text-align: center; }
         .ft-legal a { color: rgba(255,255,255,0.4); text-decoration: none; transition: color var(--ease); }
-        .ft-legal a:hover { color: var(--accent2); }
+        .ft-legal a:hover { color: var(--accent); }
 
         /* ── MODALS ── */
         .modal-ov { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 1100; overflow-y: auto; padding: 40px 20px; }
         .modal-ov.open { display: block; }
-        .modal-box { background: var(--white); border-radius: 10px; max-width: 760px; width: 100%; margin: 0 auto; padding: 48px 52px; position: relative; }
+        .modal-box { background: var(--white); border-radius: var(--radius); max-width: 760px; width: 100%; margin: 0 auto; padding: 48px 52px; position: relative; }
         .modal-close { position: absolute; top: 18px; right: 22px; background: none; border: none; font-size: 26px; cursor: pointer; color: var(--muted); line-height: 1; }
         .modal-close:hover { color: var(--dark); }
-        .modal-box h2 { font-family: var(--heading); font-size: 1.9rem; color: var(--dark); margin-bottom: 6px; }
+        .modal-box h2 { font-family: var(--heading); font-weight: 800; font-size: 1.7rem; color: var(--dark); margin-bottom: 6px; }
         .modal-sub { font-size: 0.82rem; color: var(--muted); margin-bottom: 28px; padding-bottom: 20px; border-bottom: 1px solid var(--bg-alt); }
-        .modal-box h3 { font-family: var(--heading); font-size: 1.1rem; color: var(--dark); margin: 22px 0 6px; }
+        .modal-box h3 { font-family: var(--heading); font-weight: 700; font-size: 1.05rem; color: var(--dark); margin: 22px 0 6px; }
         .modal-box p, .modal-box li { font-size: 0.9rem; line-height: 1.85; color: var(--text); margin-bottom: 5px; }
         .modal-box ul { padding-left: 22px; margin-bottom: 8px; }
         .modal-box a { color: var(--accent); }
@@ -265,12 +277,15 @@
         .cookie-bar { position: fixed; bottom: 0; left: 0; right: 0; background: var(--dark); z-index: 1050; padding: 14px 24px; display: none; align-items: center; gap: 16px; flex-wrap: wrap; font-size: 0.83rem; color: rgba(255,255,255,0.78); box-shadow: 0 -4px 20px rgba(0,0,0,0.22); }
         .cookie-bar p { flex: 1; min-width: 200px; }
         .cookie-bar a { color: var(--accent2); }
-        .cookie-bar button { background: var(--accent); color: #fff; border: none; padding: 9px 22px; border-radius: 3px; cursor: pointer; font-family: var(--body); font-size: 0.83rem; font-weight: 500; white-space: nowrap; transition: background var(--ease); }
+        .cookie-bar button { background: var(--accent); color: #fff; border: none; padding: 9px 22px; border-radius: 999px; cursor: pointer; font-family: var(--body); font-size: 0.83rem; font-weight: 500; white-space: nowrap; transition: background var(--ease); }
         .cookie-bar button:hover { background: #248F82; }
 
         @media(max-width: 980px) {
+            .hero-grid { grid-template-columns: 1fr; }
+            .hero-media { aspect-ratio: 16/10; order: -1; }
+            .hero-blob { width: 420px; height: 420px; top: -80px; right: -140px; }
             .about-grid { grid-template-columns: 1fr; }
-            .about-img img { height: 340px; }
+            .about-img-in img { height: 340px; }
             .svc-grid, .why-grid { grid-template-columns: repeat(2,1fr); }
             .list-grid { grid-template-columns: repeat(2,1fr); }
             .proc-grid { grid-template-columns: repeat(2,1fr); row-gap: 40px; }
@@ -280,23 +295,20 @@
         @media(max-width: 860px) {
             :root { --nav-h: 64px; }
             .sec { padding: 64px 0; }
+            #hero { padding-top: calc(var(--nav-h) + 40px); }
             .logo img { height: 34px; }
             .logo-name { font-size: 1.08rem; }
             .nav-links { display: none; }
             .lang-sw { display: none; }
             .hamburger { display: flex; }
-            .hero-c { padding-bottom: 150px; }
-            .hero-stats { grid-template-columns: repeat(2,1fr); }
-            .hero-stat:nth-child(2) { border-right: none; }
-            .hero-scroll { bottom: 185px; }
+            .hero-stats { gap: 24px; }
             .svc-grid, .why-grid, .list-grid { grid-template-columns: 1fr; }
             .proc-grid { grid-template-columns: 1fr; }
             .row2 { grid-template-columns: 1fr; }
             .ct-form { padding: 28px 22px; }
         }
         @media(max-width: 480px) {
-            .hero-btns { flex-direction: column; align-items: center; }
-            .hero-btns .btn { width: 100%; max-width: 280px; justify-content: center; }
+            .hero-btns .btn { width: 100%; max-width: 320px; justify-content: center; }
             .modal-box { padding: 24px 18px; }
             .modal-box h2 { font-size: 1.5rem; }
         }
@@ -349,26 +361,28 @@
 
 <!-- HERO -->
 <section id="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-ov"></div>
-    <div class="hero-c">
-        <div class="hero-badge"><i class="fas fa-map-marker-alt"></i> <span data-i18n="hero.badge">Debrecen és környéke, Magyarország</span></div>
-        <h1 class="hero-title" data-i18n-html="hero.title">Vállalati lakhatás <em>Debrecenben és környékén</em></h1>
-        <p class="hero-desc" data-i18n="hero.desc">Teljes körű, minőségi szálláskiadás és ingatlanüzemeltetés vállalatvezetőktől a kiküldött munkavállalói csapatokig, a debreceni nagyipari beruházások közelében.</p>
-        <div class="hero-btns">
-            <a href="#kapcsolat" class="btn btn-gold"><i class="fas fa-paper-plane"></i><span data-i18n="hero.btn1">Kapcsolatfelvétel</span></a>
-            <a href="#szolgaltatas" class="btn btn-ghost"><i class="fas fa-list"></i><span data-i18n="hero.btn2">Szolgáltatásaink</span></a>
+    <div class="hero-blob"></div>
+    <div class="container">
+        <div class="hero-grid">
+            <div class="hero-content">
+                <div class="hero-badge"><i class="fas fa-map-marker-alt"></i> <span data-i18n="hero.badge">Debrecen és környéke, Magyarország</span></div>
+                <h1 class="hero-title" data-i18n-html="hero.title">Vállalati lakhatás <em>Debrecenben és környékén</em></h1>
+                <p class="hero-desc" data-i18n="hero.desc">Teljes körű, minőségi szálláskiadás és ingatlanüzemeltetés vállalatvezetőktől a kiküldött munkavállalói csapatokig, a debreceni nagyipari beruházások közelében.</p>
+                <div class="hero-btns">
+                    <a href="#kapcsolat" class="btn btn-gold"><i class="fas fa-paper-plane"></i><span data-i18n="hero.btn1">Kapcsolatfelvétel</span></a>
+                    <a href="#szolgaltatas" class="btn btn-ghost"><i class="fas fa-list"></i><span data-i18n="hero.btn2">Szolgáltatásaink</span></a>
+                </div>
+                <div class="hero-stats">
+                    <div class="hero-stat"><span class="hero-stat-n" id="guestCountN">1200+</span><span class="hero-stat-l" data-i18n="hero.stat1l">Elszállásolt vendég</span></div>
+                    <div class="hero-stat"><span class="hero-stat-n">24/7</span><span class="hero-stat-l" data-i18n="hero.stat2l">Elérhető kapcsolattartás</span></div>
+                    <div class="hero-stat"><span class="hero-stat-n" data-i18n="hero.stat4v">Teljes körű</span><span class="hero-stat-l" data-i18n="hero.stat4l">Ingatlanüzemeltetés</span></div>
+                </div>
+            </div>
+            <div class="hero-media">
+                <img src="kepek/hero.jpg" alt="Interprop – berendezett lakás" loading="eager">
+                <div class="hero-media-badge"><i class="fas fa-industry"></i> <span data-i18n="hero.stat3l">Ipari parkok közelében</span></div>
+            </div>
         </div>
-    </div>
-    <div class="hero-scroll" onclick="goTo('rolunk')">
-        <span data-i18n="hero.scroll">Görgessen</span>
-        <i class="fas fa-chevron-down"></i>
-    </div>
-    <div class="hero-stats">
-        <div class="hero-stat"><span class="hero-stat-n" id="guestCountN">1200+</span><span class="hero-stat-l" data-i18n="hero.stat1l">Elszállásolt vendég</span></div>
-        <div class="hero-stat"><span class="hero-stat-n">24/7</span><span class="hero-stat-l" data-i18n="hero.stat2l">Elérhető kapcsolattartás</span></div>
-        <div class="hero-stat"><span class="hero-stat-n">Debrecen</span><span class="hero-stat-l" data-i18n="hero.stat3l">Ipari parkok közelében</span></div>
-        <div class="hero-stat"><span class="hero-stat-n" data-i18n="hero.stat4v">Teljes körű</span><span class="hero-stat-l" data-i18n="hero.stat4l">Ingatlanüzemeltetés</span></div>
     </div>
 </section>
 
@@ -377,19 +391,21 @@
     <div class="container">
         <div class="about-grid">
             <div class="about-img">
-                <img src="kepek/about.jpg" alt="Interprop">
-                <div class="about-tag">
-                    <strong>Otthonok. Lehetőségek.</strong>
-                    <span>Bizalom.</span>
+                <div class="about-img-in">
+                    <img src="kepek/about.jpg" alt="Interprop">
                 </div>
             </div>
             <div class="about-text">
                 <span class="label" data-i18n="about.label">Rólunk</span>
                 <h2 class="title" data-i18n-html="about.title">Otthonok. Lehetőségek. Bizalom.</h2>
-                <div class="divider"></div>
-                <p class="about-p" style="margin-top:22px" data-i18n="about.p1">Az Interprop Kft. Debrecenben és környékén biztosít minőségi, teljes körűen felszerelt lakhatást a nagyipari beruházásokhoz kapcsolódó vállalatok munkavállalói számára – a vezetőktől a kiküldött szakemberekig –, elsősorban koreai és kínai, de hazai partnereink részére is.</p>
+                <p class="about-p" data-i18n="about.p1">Az Interprop Kft. Debrecenben és környékén biztosít minőségi, teljes körűen felszerelt lakhatást a nagyipari beruházásokhoz kapcsolódó vállalatok munkavállalói számára – a vezetőktől a kiküldött szakemberekig –, elsősorban koreai és kínai, de hazai partnereink részére is.</p>
                 <p class="about-p" data-i18n="about.p2">Célunk, hogy az áttelepülés a lehető legzökkenőmentesebb legyen: a megfelelő ingatlan kiválasztásától a napi ügyintézésig mindenben partnerei vagyunk.</p>
-                <a href="#kapcsolat" class="btn btn-dark" style="margin-top:8px"><span data-i18n="about.cta">Kapcsolatfelvétel</span> <i class="fas fa-arrow-right"></i></a>
+                <ul class="about-checks">
+                    <li><i class="fas fa-circle-check"></i><span data-i18n="about.check1">Teljes körűen felszerelt lakások</span></li>
+                    <li><i class="fas fa-circle-check"></i><span data-i18n="about.check2">Vezetőktől a kiküldött csapatokig</span></li>
+                    <li><i class="fas fa-circle-check"></i><span data-i18n="about.check3">Napi ügyintézés és folyamatos támogatás</span></li>
+                </ul>
+                <a href="#kapcsolat" class="btn btn-dark"><span data-i18n="about.cta">Kapcsolatfelvétel</span> <i class="fas fa-arrow-right"></i></a>
             </div>
         </div>
     </div>
@@ -440,13 +456,12 @@
 </section>
 
 <!-- MIÉRT MI -->
-<section id="miertmi" class="sec sec-dark">
+<section id="miertmi" class="sec sec-alt">
     <div class="container">
         <div class="sec-header c">
-            <span class="label" style="color:var(--accent2)" data-i18n="why.label">Miért minket</span>
-            <h2 class="title" style="color:#fff" data-i18n="why.title">Miért az Interprop</h2>
-            <div class="divider c"></div>
-            <p class="subtitle" style="margin:18px auto 0;color:rgba(255,255,255,0.65)" data-i18n="why.sub">Négy ok, amiért partnereink minket választanak.</p>
+            <span class="label" data-i18n="why.label">Miért minket</span>
+            <h2 class="title" data-i18n="why.title">Miért az Interprop</h2>
+            <p class="subtitle" style="margin:0 auto" data-i18n="why.sub">Négy ok, amiért partnereink minket választanak.</p>
         </div>
         <div class="why-grid">
             <div class="why-card">
@@ -684,6 +699,7 @@
             'about.label':'Rólunk','about.title':'Otthonok. Lehetőségek. Bizalom.',
             'about.p1':'Az Interprop Kft. Debrecenben és környékén biztosít minőségi, teljes körűen felszerelt lakhatást a nagyipari beruházásokhoz kapcsolódó vállalatok munkavállalói számára – a vezetőktől a kiküldött szakemberekig –, elsősorban koreai és kínai, de hazai partnereink részére is.',
             'about.p2':'Célunk, hogy az áttelepülés a lehető legzökkenőmentesebb legyen: a megfelelő ingatlan kiválasztásától a napi ügyintézésig mindenben partnerei vagyunk.',
+            'about.check1':'Teljes körűen felszerelt lakások','about.check2':'Vezetőktől a kiküldött csapatokig','about.check3':'Napi ügyintézés és folyamatos támogatás',
             'about.cta':'Kapcsolatfelvétel',
             'services.label':'Szolgáltatások','services.title':'Amit kínálunk','services.sub':'Vezetői lakástól a teljes körű ingatlanüzemeltetésig – minden, amire egy külföldi csapat áttelepüléséhez szükség van.',
             'svc1.title':'Vezetői lakások','svc1.desc':'Prémium kategóriás, teljesen berendezett apartmanok egyéni felsővezetők számára, azonnal beköltözhető állapotban.',
@@ -724,6 +740,7 @@
             'about.label':'About','about.title':'Homes. Opportunities. Trust.',
             'about.p1':'Interprop Kft. provides quality, fully furnished housing in Debrecen and its surrounding area for employees of companies connected to the region\'s major industrial investments — from executives to delegated specialists — primarily for our Korean and Chinese partners, but also for domestic companies.',
             'about.p2':'Our goal is to make relocation as seamless as possible: from selecting the right property to day-to-day administration, we\'re your partner every step of the way.',
+            'about.check1':'Fully furnished apartments','about.check2':'From executives to delegated teams','about.check3':'Day-to-day administration and ongoing support',
             'about.cta':'Get in Touch',
             'services.label':'Services','services.title':'What We Offer','services.sub':'From executive apartments to full property management — everything needed to relocate a foreign team.',
             'svc1.title':'Executive Apartments','svc1.desc':'Premium, fully furnished apartments for individual senior executives, ready to move in immediately.',
@@ -764,6 +781,7 @@
             'about.label':'회사 소개','about.title':'주거. 기회. 신뢰.',
             'about.p1':'Interprop Kft.는 데브레첸 및 인근 지역에서 대규모 산업 투자와 연계된 기업의 임직원을 위한 고품질 완비형 주거를 제공합니다 – 임원부터 파견 전문 인력까지 – 주로 한국 및 중국 파트너사를 위해, 그리고 국내 기업에도 제공됩니다.',
             'about.p2':'저희의 목표는 이주 과정을 최대한 원활하게 만드는 것입니다. 적합한 부동산 선정부터 일상적인 행정 업무까지, 모든 과정을 함께합니다.',
+            'about.check1':'완비된 가구 딸린 아파트','about.check2':'임원부터 파견팀까지','about.check3':'일상 행정 업무 및 지속적인 지원',
             'about.cta':'문의하기',
             'services.label':'서비스','services.title':'제공 서비스','services.sub':'임원 아파트부터 종합 부동산 관리까지 — 해외 팀의 이주에 필요한 모든 것을 제공합니다.',
             'svc1.title':'임원 아파트','svc1.desc':'개별 고위 임원을 위한 프리미엄 완비형 아파트로, 즉시 입주가 가능합니다.',
@@ -804,6 +822,7 @@
             'about.label':'关于我们','about.title':'家园。机遇。信任。',
             'about.p1':'Interprop Kft. 在德布勒森及周边地区为与重大工业投资相关的企业员工提供高品质、全套设施的住房——从高管到外派专业人员——主要面向我们的韩国和中国合作伙伴，同时也服务本地企业。',
             'about.p2':'我们的目标是让搬迁过程尽可能顺利：从挑选合适的房源到日常事务处理，我们全程为您提供支持。',
+            'about.check1':'全套家具公寓','about.check2':'从高管到外派团队','about.check3':'日常事务处理及持续支持',
             'about.cta':'联系我们',
             'services.label':'服务项目','services.title':'我们提供的服务','services.sub':'从高管公寓到全方位物业管理——外派团队搬迁所需的一切，我们都能提供。',
             'svc1.title':'高管公寓','svc1.desc':'为个人高管提供的高品质全套设施公寓，可即时入住。',
