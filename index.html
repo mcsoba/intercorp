@@ -958,6 +958,12 @@
     });
 
     // ── DYNAMIC CONTENT (content.json) ───────────────────────
+    function postalAddress(a) {
+        // "4031 Debrecen, Széchenyi utca 80." → schema.org PostalAddress
+        const m = /^(\d{4})\s+([^,]+),\s*(.+)$/.exec((a || '').trim());
+        return m ? { '@type': 'PostalAddress', streetAddress: m[3], postalCode: m[1], addressLocality: m[2], addressCountry: 'HU' }
+                 : { '@type': 'PostalAddress', addressLocality: a || 'Debrecen', addressCountry: 'HU' };
+    }
     function applyContent(c) {
         document.querySelectorAll('[data-c]').forEach(el => {
             const v = c[el.dataset.c];
@@ -981,7 +987,7 @@
             '@type': 'Organization',
             name: 'Interprop Kft.',
             image: location.origin + '/kepek/hero.jpg',
-            address: { '@type': 'PostalAddress', streetAddress: 'Széchenyi utca 80.', postalCode: '4031', addressLocality: 'Debrecen', addressCountry: 'HU' },
+            address: postalAddress(c.address),
             email: c.email || '',
             telephone: c.phone1 || '',
         });
@@ -990,12 +996,18 @@
     fetch('content.json?v=' + Date.now()).then(r => r.json()).then(applyContent).catch(() => {});
 
     // Legal documents — admin-editable, fallback to built-in text above
-    fetch('legal.json?v=' + Date.now())
-        .then(r => r.json())
-        .then(legal => {
-            if (legal.aszf)       document.getElementById('legal-aszf').innerHTML = legal.aszf;
-            if (legal.gdpr)       document.getElementById('legal-gdpr').innerHTML = legal.gdpr;
-            if (legal.impresszum) document.getElementById('legal-impresszum').innerHTML = legal.impresszum;
+    // A {{kulcs}} helyőrzőket a content.json (admin → Beállítások) értékeivel töltjük ki,
+    // így a cégadatokat csak egy helyen kell szerkeszteni.
+    const escHtml = s => String(s).replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
+    Promise.all([
+        fetch('legal.json?v=' + Date.now()).then(r => r.json()),
+        fetch('content.json?v=' + Date.now()).then(r => r.json()).catch(() => ({}))
+    ])
+        .then(([legal, c]) => {
+            const fill = html => html.replace(/\{\{(\w+)\}\}/g, (m, k) => c[k] != null ? escHtml(c[k]) : '[KITÖLTENDŐ]');
+            if (legal.aszf)       document.getElementById('legal-aszf').innerHTML = fill(legal.aszf);
+            if (legal.gdpr)       document.getElementById('legal-gdpr').innerHTML = fill(legal.gdpr);
+            if (legal.impresszum) document.getElementById('legal-impresszum').innerHTML = fill(legal.impresszum);
         })
         .catch(() => {});
 
