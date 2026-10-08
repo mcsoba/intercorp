@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="kepek/logo.svg">
     <title>Interprop | Vállalati lakhatás Debrecenben és környékén</title>
     <meta name="description" content="Minőségi céges szálláskiadás és ingatlanüzemeltetés Debrecenben és környékén – vezetőktől a kiküldött munkavállalói csapatokig.">
     <link rel="canonical" href="https://interprop.hu/">
@@ -294,6 +295,8 @@
         }
         @media(max-width: 860px) {
             :root { --nav-h: 64px; }
+            /* iOS 16px alatt ránagyít a mezőre fókuszkor */
+            .fg input, .fg select, .fg textarea { font-size: 16px; }
             .sec { padding: 64px 0; }
             #hero { padding-top: calc(var(--nav-h) + 40px); }
             .logo img { height: 34px; }
