@@ -553,7 +553,7 @@
                         <div class="ct-icon"><i class="fas fa-envelope"></i></div>
                         <div class="ct-txt">
                             <strong data-i18n="contact.cemail">E-mail</strong>
-                            <a href="mailto:info@interprop.hu" data-c="email" data-c-href="email_href">info@interprop.hu</a>
+                            <a href="mailto:inter.prop.kft@gmail.com" data-c="email" data-c-href="email_href">inter.prop.kft@gmail.com</a>
                         </div>
                     </div>
                     <div class="ct-item">
@@ -568,13 +568,10 @@
 
             <div class="ct-form">
                 <h3 class="ct-form-title" data-i18n="contact.formtitle">Megkeresés küldése</h3>
-                <!--
-                    Éles üzemmódhoz: regisztráljon a formspree.io oldalon (ingyenes),
-                    hozzon létre egy formot az info@interprop.hu címre,
-                    és cserélje az action értékét: https://formspree.io/f/FORMSPREE_ID_TODO
-                -->
-                <form id="ctForm" action="https://formspree.io/f/FORMSPREE_ID_TODO" method="POST" novalidate>
-                    <input type="hidden" name="_subject" value="Megkeresés – Interprop">
+                <form id="ctForm" name="kapcsolat" action="/" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+                    <input type="hidden" name="form-name" value="kapcsolat">
+                    <input type="hidden" name="subject" value="Megkeresés – Interprop">
+                    <p hidden><label>Ne töltse ki: <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
                     <div class="row2">
                         <div class="fg">
                             <label for="cegnev" data-i18n="form.company">Cégnév *</label>
@@ -636,7 +633,7 @@
             <div class="ft-line"></div>
             <p class="ft-copy">
                 &copy; 2026 Interprop Kft. &nbsp;·&nbsp; Debrecen &nbsp;·&nbsp;
-                <a href="mailto:info@interprop.hu" data-c="email" data-c-href="email_href" style="color:rgba(255,255,255,0.55)">info@interprop.hu</a>
+                <a href="mailto:inter.prop.kft@gmail.com" data-c="email" data-c-href="email_href" style="color:rgba(255,255,255,0.55)">inter.prop.kft@gmail.com</a>
             </p>
             <p class="ft-legal">
                 <a href="#" onclick="openModal('modal-aszf');return false;" data-i18n="ft.legal1">Együttműködési feltételek</a>
@@ -940,7 +937,13 @@
         btn.disabled = true;
         btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
         try {
-            const r = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } });
+            // Netlify Forms: URL-kódolt POST a gyökérre; az értesítő e-mail címzettje
+            // a Netlify felületén (Forms → Form notifications) állítható.
+            const r = await fetch('/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams(new FormData(form)).toString()
+            });
             if (r.ok) {
                 form.style.display = 'none';
                 document.getElementById('formOk').style.display = 'block';
@@ -951,7 +954,7 @@
             const body = encodeURIComponent(
                 `Cégnév: ${d.get('cegnev')}\nKapcsolattartó: ${d.get('nev')}\nE-mail: ${d.get('email')}\nTelefon: ${d.get('telefon')||'–'}\nLétszám: ${d.get('letszam')||'–'}\n\nÜzenet:\n${d.get('uzenet')||'–'}`
             );
-            window.location.href = `mailto:info@interprop.hu?subject=${subj}&body=${body}`;
+            window.location.href = `mailto:inter.prop.kft@gmail.com?subject=${subj}&body=${body}`;
             btn.disabled = false;
             btn.innerHTML = '<i class="fas fa-paper-plane"></i> <span data-i18n="form.submit">Küldés</span>';
         }
