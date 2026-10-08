@@ -119,6 +119,9 @@
         .legal-editor li { margin-bottom:6px; }
         .legal-editor strong { font-weight:700; color:var(--dark); }
         .legal-editor a { color:var(--accent); }
+        .inline-editor { min-height:96px; max-height:260px; padding:11px 14px; }
+        .inline-editor.single-line { min-height:0; }
+        #txt-hero-title em { font-style:normal; color:var(--accent); background:rgba(47,184,168,0.12); padding:0 5px; border-radius:5px; }
     </style>
 </head>
 <body>
@@ -243,14 +246,41 @@
                 <div class="divider"></div>
 
                 <h3 style="font-family:var(--heading);font-size:1.05rem;margin-bottom:12px">Kezdőlap (Hero)</h3>
-                <div class="field"><label>Cím (HTML engedélyezett, pl. &lt;em&gt;kiemelés&lt;/em&gt;)</label><input type="text" id="txt-hero-title"></div>
-                <div class="field"><label>Leírás</label><textarea id="txt-hero-desc"></textarea></div>
+                <div class="field"><label>Cím (a kiemelt rész színes háttérrel jelenik meg)</label>
+                    <div class="legal-toolbar">
+                        <button type="button" class="btn-tb" data-cmd="italic" title="A kijelölt rész kiemelése">Kiemelés</button>
+                        <button type="button" class="btn-tb" data-cmd="removeFormat" title="Formázás törlése">Tisztítás</button>
+                    </div>
+                    <div class="legal-editor inline-editor single-line" id="txt-hero-title" contenteditable="true"></div>
+                </div>
+                <div class="field"><label>Leírás</label>
+                    <div class="legal-toolbar">
+                        <button type="button" class="btn-tb" data-cmd="bold" title="Félkövér"><b>B</b></button>
+                        <button type="button" class="btn-tb" data-cmd="italic" title="Dőlt"><i>D</i></button>
+                        <button type="button" class="btn-tb" data-cmd="removeFormat" title="Formázás törlése">Tisztítás</button>
+                    </div>
+                    <div class="legal-editor inline-editor" id="txt-hero-desc" contenteditable="true"></div>
+                </div>
 
                 <div class="divider"></div>
                 <h3 style="font-family:var(--heading);font-size:1.05rem;margin-bottom:12px">Rólunk</h3>
                 <div class="field"><label>Cím</label><input type="text" id="txt-about-title"></div>
-                <div class="field"><label>1. bekezdés</label><textarea id="txt-about-p1"></textarea></div>
-                <div class="field"><label>2. bekezdés</label><textarea id="txt-about-p2"></textarea></div>
+                <div class="field"><label>1. bekezdés</label>
+                    <div class="legal-toolbar">
+                        <button type="button" class="btn-tb" data-cmd="bold" title="Félkövér"><b>B</b></button>
+                        <button type="button" class="btn-tb" data-cmd="italic" title="Dőlt"><i>D</i></button>
+                        <button type="button" class="btn-tb" data-cmd="removeFormat" title="Formázás törlése">Tisztítás</button>
+                    </div>
+                    <div class="legal-editor inline-editor" id="txt-about-p1" contenteditable="true"></div>
+                </div>
+                <div class="field"><label>2. bekezdés</label>
+                    <div class="legal-toolbar">
+                        <button type="button" class="btn-tb" data-cmd="bold" title="Félkövér"><b>B</b></button>
+                        <button type="button" class="btn-tb" data-cmd="italic" title="Dőlt"><i>D</i></button>
+                        <button type="button" class="btn-tb" data-cmd="removeFormat" title="Formázás törlése">Tisztítás</button>
+                    </div>
+                    <div class="legal-editor inline-editor" id="txt-about-p2" contenteditable="true"></div>
+                </div>
 
                 <div class="divider"></div>
                 <h3 style="font-family:var(--heading);font-size:1.05rem;margin-bottom:12px">Szolgáltatások (4 kártya)</h3>
@@ -493,22 +523,69 @@
     let textsAll = { hu: {}, en: {}, ko: {}, zh: {} };
     let currentTextLang = 'hu';
 
+    // Formázható mezők (a weboldal HTML-ként jeleníti meg): csak félkövér, kiemelés/dőlt és sortörés
+    const RICH_TEXT_KEYS = ['hero.title', 'hero.desc', 'about.p1', 'about.p2'];
+
+    function normalizeInlineHtml(html) {
+        const div = document.createElement('div');
+        div.innerHTML = html;
+        const swap = (sel, tag) => div.querySelectorAll(sel).forEach(el => { const n = document.createElement(tag); n.append(...el.childNodes); el.replaceWith(n); });
+        swap('b', 'strong'); swap('i', 'em');
+        div.querySelectorAll('div, p').forEach(el => { if (el.previousSibling) el.before(document.createElement('br')); });
+        (function clean(node) {
+            [...node.childNodes].forEach(ch => {
+                if (ch.nodeType === 1) {
+                    if (/^(SCRIPT|STYLE|IFRAME|OBJECT|EMBED)$/.test(ch.tagName)) { ch.remove(); return; }
+                    clean(ch);
+                    if (!/^(STRONG|EM|BR)$/.test(ch.tagName)) { ch.replaceWith(...ch.childNodes); return; }
+                    [...ch.attributes].forEach(a => ch.removeAttribute(a.name));
+                } else if (ch.nodeType !== 3) { ch.remove(); }
+            });
+        })(div);
+        return div.innerHTML.replace(/&nbsp;/g, ' ').replace(/(\s*<br>\s*)+$/, '').trim();
+    }
+
     function populateTextFields(lang) {
         const t = textsAll[lang] || {};
         TEXT_KEYS.forEach(key => {
             const el = document.getElementById(textFieldId(key));
-            if (el) el.value = t[key] || '';
+            if (!el) return;
+            if (RICH_TEXT_KEYS.includes(key)) el.innerHTML = t[key] || '';
+            else el.value = t[key] || '';
         });
     }
 
     function captureTextFields(lang) {
+        const prev = textsAll[lang] || {};
         const t = {};
         TEXT_KEYS.forEach(key => {
             const el = document.getElementById(textFieldId(key));
-            t[key] = el.value.trim();
+            if (RICH_TEXT_KEYS.includes(key)) {
+                // érintetlen mező bájtra azonos marad az eredetivel
+                const cur = normalizeInlineHtml(el.innerHTML);
+                t[key] = cur === normalizeInlineHtml(prev[key] || '') ? (prev[key] || '') : cur;
+            } else {
+                t[key] = el.value.trim();
+            }
         });
         textsAll[lang] = t;
     }
+
+    document.querySelectorAll('.inline-editor').forEach(ed => {
+        // Enter: a címben tiltva, a bekezdésekben sortörés (nem új blokk)
+        ed.addEventListener('keydown', e => {
+            if (e.key !== 'Enter') return;
+            e.preventDefault();
+            if (!ed.classList.contains('single-line')) document.execCommand('insertLineBreak');
+        });
+        // beillesztéskor csak a szöveg jön át
+        ed.addEventListener('paste', e => {
+            e.preventDefault();
+            let text = (e.clipboardData || window.clipboardData).getData('text/plain');
+            if (ed.classList.contains('single-line')) text = text.replace(/\s*\n\s*/g, ' ');
+            document.execCommand('insertText', false, text);
+        });
+    });
 
     document.querySelectorAll('[data-lang]').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -614,11 +691,22 @@
 
     try { document.execCommand('defaultParagraphSeparator', false, 'p'); } catch {}
 
+    function runEditorCmd(cmd, val) {
+        const sel = window.getSelection();
+        const collapsed = sel.isCollapsed;
+        document.execCommand(cmd, false, val || null);
+        if (cmd !== 'insertUnorderedList' || !sel.anchorNode) return;
+        // A Chrome a listát a bekezdésen belülre teszi, és a kurzort a sor elejére ugratja — helyreállítás
+        const li = (sel.anchorNode.nodeType === 1 ? sel.anchorNode : sel.anchorNode.parentElement).closest('li');
+        if (!li) return;
+        const wrap = li.parentNode.parentNode;
+        if (wrap && wrap.tagName === 'P') wrap.replaceWith(...wrap.childNodes);
+        if (collapsed) { const r = document.createRange(); r.selectNodeContents(li); r.collapse(false); sel.removeAllRanges(); sel.addRange(r); }
+    }
+
     document.querySelectorAll('.btn-tb').forEach(btn => {
         btn.addEventListener('mousedown', e => e.preventDefault());
-        btn.addEventListener('click', () => {
-            document.execCommand(btn.dataset.cmd, false, btn.dataset.val || null);
-        });
+        btn.addEventListener('click', () => runEditorCmd(btn.dataset.cmd, btn.dataset.val));
     });
 
     function normalizeLegalHtml(html) {
