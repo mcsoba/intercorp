@@ -1,5 +1,4 @@
 {
-  "guest_count": 1200,
   "person": "Interprop ügyfélszolgálat",
   "phone1": "+36 30 315 3458",
   "phone1_href": "tel:+36303153458",
@@ -7,5 +6,6 @@
   "email_href": "mailto:inter.prop.kft@gmail.com",
   "address": "4031 Debrecen, Széchenyi utca 80.",
   "company_reg": "09 09 035251",
-  "tax_number": "32310896-2-09"
+  "tax_number": "32310896-2-09",
+  "guest_count": 1200
 }
